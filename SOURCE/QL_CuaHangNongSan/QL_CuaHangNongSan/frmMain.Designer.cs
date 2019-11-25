@@ -328,6 +328,8 @@
             // lblTenNhanVien
             // 
             this.lblTenNhanVien.BackColor = System.Drawing.Color.LightCyan;
+            this.lblTenNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenNhanVien.ForeColor = System.Drawing.Color.Red;
             this.lblTenNhanVien.Name = "lblTenNhanVien";
             this.lblTenNhanVien.Text = "Tên nhân viên";
             // 
@@ -408,7 +410,7 @@
             this.tab.Controls.Add(this.panelDockContainer1);
             this.tab.DockTabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Top;
             this.tab.DockTabCloseButtonVisible = true;
-            this.tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tab.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.dockContainerItem1});
             this.tab.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
@@ -535,6 +537,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1371, 668);
+            this.ControlBox = false;
             this.Controls.Add(this.dockSite9);
             this.Controls.Add(this.dockSite2);
             this.Controls.Add(this.dockSite1);
@@ -551,6 +554,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1389, 715);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Phần mềm quản lý cửa hàng nông sản";

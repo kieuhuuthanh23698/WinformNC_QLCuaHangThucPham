@@ -6,71 +6,97 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using DAL;
+
 namespace QL_CuaHangNongSan
 {
     public partial class frmLogin : Form
     {
-        KetNoiDuLieu link;
+        DAL_Login dal_login = new DAL_Login();
+        public static TAI_KHOAN nhanVien = null;  
 
-        public frmLogin(string s)
+        public frmLogin()
         {
             InitializeComponent();
-        }
-
-        public frmLogin(KetNoiDuLieu link)
-        {
-            InitializeComponent();
-            this.link = link;
             txtTenDangNhap.Focus();
         }
 
-        private string xacNhanTaiKhoan(string username, string password)
-        {
-            try
-            {
-                string chuoiCommand = "select MaNhanVien from NhanVien where UserName = '" + username + "' and Passwords = '" + password + "'";
-                return this.link.comMandScalar(chuoiCommand);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString(),"EXCEPTION",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                MessageBox.Show("Không thể kết nối vào DATABASE !", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return "";
-        }
-
         private void btnDangNhap_Click(object sender, EventArgs e)
-        {
-            //xét các ràng buộc csdl
-            if (txtTenDangNhap.Text != "" && txtMatKhau.Text != "")
+        {   
+            if (txtTenDangNhap.Text == "")
             {
-                if (xacNhanTaiKhoan(txtTenDangNhap.Text, txtMatKhau.Text).Equals("") == false)
-                {
-                    string manv = xacNhanTaiKhoan(txtTenDangNhap.Text, txtMatKhau.Text);
-                    frmMain frmMain = new frmMain(link, manv);
-                    frmMain.Show();
-                    this.Hide();
-                }
-                else
-                    MessageBox.Show("Tài khoảng không đúng !\nVui lòng nhập lại !", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.errorProvider1.SetError(txtTenDangNhap, "Bạn không được để trống tên đăng nhập !");
+                txtMatKhau.Focus();
+                return;
             }
             else
+                this.errorProvider1.Clear();
+
+
+            if (txtMatKhau.Text == "")
             {
-                //nếu các text vi phạm ràng buộc thì cảnh báo
-                if (txtTenDangNhap.Text == "")
-                    this.errorProvider1.SetError(txtTenDangNhap, "Bạn không được để trống tên đăng nhập !");
-                else
-                    this.errorProvider1.Clear();
-                if (txtMatKhau.Text == "")
-                    this.errorProvider1.SetError(txtMatKhau, "Bạn không được để trống mật khẩu !");
-                else
-                    this.errorProvider1.Clear();
+                this.errorProvider1.SetError(txtMatKhau, "Bạn không được để trống mật khẩu !");
+                txtMatKhau.Focus();
+                return;
             }
+            else
+                this.errorProvider1.Clear();
+
+
+            int kq = dal_login.checkConfig();
+            switch (kq)
+            {
+                case 0:
+                    ProccessLogin();
+                    break;
+                case 1:
+                    MessageBox.Show("Chuỗi cấu hình không tồn tại !");
+                    ProcessConfig();
+                    break;
+                case 2:
+                    MessageBox.Show("Chuỗi cấu hình không hợp lệ !");
+                    ProcessConfig();
+                    break;
+            }
+
+        }
+
+        private void ProcessConfig()
+        {
+            if (Program.frmCauHinh == null || Program.frmCauHinh.IsDisposed)
+            {
+                Program.frmCauHinh = new frmKetNoi();
+            }
+            this.Visible = false;
+            Program.frmCauHinh.Show();
+        }
+
+        private void ProccessLogin()
+        {
+            LoginResult res = dal_login.checkUser(txtTenDangNhap.Text, txtMatKhau.Text);
+            if (res == LoginResult.Invalid)
+            {
+                MessageBox.Show("Sai mật khẩu hoặc password !");
+                return;
+            }
+            if (res == LoginResult.Invalid)
+            {
+                MessageBox.Show("Tài khoảng bị khóa !");
+                return;
+            }
+            if (res == LoginResult.Success)
+            {
+                nhanVien = dal_login.getTaiKhoan(txtTenDangNhap.Text, txtMatKhau.Text);
+                if (Program.frmMain == null || Program.frmMain.IsDisposed)
+                    Program.frmMain = new frmMain();
+                this.Visible = false;
+                Program.frmMain.Show();
+            }
+
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            //xác nhận trước khi thoát
             DialogResult result = MessageBox.Show("Bạn có muốn thoát không ?", "EXIT", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
                 Application.Exit(); 
@@ -113,7 +139,6 @@ namespace QL_CuaHangNongSan
         private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-
         }
     }
 }

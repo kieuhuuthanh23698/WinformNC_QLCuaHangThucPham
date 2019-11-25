@@ -6,19 +6,24 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DAL;
+
 
 namespace QL_CuaHangNongSan
 {
     public partial class frmHoaDon : Form
     {
         KetNoiDuLieu link;
-        String manv;
+        string manv;
+        DAL_HoaDon dalHoaDon = new DAL_HoaDon();
+        List<DANH_MUC_SP> danhMucHangHoa;
+        List<HANGHOA> dsHangHoa;
 
-        public frmHoaDon(KetNoiDuLieu link, String manv)
+        public frmHoaDon()
         {
-            this.link = link;
-            this.manv = manv;
             InitializeComponent();
+            danhMucHangHoa = dalHoaDon.getDanhMuc();
+            dsHangHoa = dalHoaDon.getHangHoa("");
             taiGridViewHangHoa();
             taiTreeView();
             taiAutoCompleteText();
@@ -33,7 +38,7 @@ namespace QL_CuaHangNongSan
         {
             try
             {
-                dataGridViewHangHoa.DataSource = this.link.comManTable("select MaHangHoa as N'Mã hàng hóa', TenHangHoa as N'Tên hàng hóa', GiaBan as N'Giá bán', DonVi as N'Đơn vị', SoLuongTrongKho as N'Số lượng' from KhoHang where SoluongTrongKho > 0", "Hang hoa").Tables["Hang hoa"];
+                dataGridViewHangHoa.DataSource = dsHangHoa;
             }
             catch (Exception ex)
             {
@@ -45,19 +50,12 @@ namespace QL_CuaHangNongSan
         {
             try
             {
-                SqlDataReader rd = this.link.comManReader("select TenLoaiHangHoa from LoaiHangHoa", "LoaiHangHoa");
-                treeView1.Nodes[0].ImageIndex = 0;
                 int i = 0;
-                while (rd.Read())
+                foreach (var item in danhMucHangHoa)
                 {
-                    treeView1.Nodes[0].Nodes.Add(rd["TenLoaiHangHoa"].ToString());
-                    treeView1.Nodes[0].Nodes[i].ImageIndex = 1;
-                    i++;
+                    treeView1.Nodes[0].Nodes.Add(item.TENLOAI);
+                    treeView1.Nodes[0].Nodes[i++].ImageIndex = 1;
                 }
-
-                rd.Close();
-
-                this.link.closeConnection();
                 treeView1.ExpandAll();
             }
             catch (Exception ex)
@@ -70,15 +68,15 @@ namespace QL_CuaHangNongSan
         {
             try
             {
-                SqlDataReader rd = this.link.comManReader("select TenHangHoa from KhoHang", "TenHangHoa");
-
-                while (rd.Read())
+                foreach (var item in dsHangHoa)
                 {
-                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(rd["TenHangHoa"].ToString());
+                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.TENSP);
+                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.MASP);
                 }
-                rd.Close();
-
-                this.link.closeConnection();
+                foreach (var item in danhMucHangHoa)
+                {
+                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.MALOAI);
+                }
             }
             catch (Exception ex)
             {
@@ -93,7 +91,9 @@ namespace QL_CuaHangNongSan
                 if (autoCompleteTextTenHangHoa.Text.Trim().Equals("") == true)
                     taiGridViewHangHoa();
                 else
-                    dataGridViewHangHoa.DataSource = this.link.comManTable("select MaHangHoa as N'Mã hàng hóa', TenHangHoa as N'Tên hàng hóa', GiaBan as N'Giá bán', DonVi as N'Đơn vị', SoLuongTrongKho as N'Số lượng' from KhoHang where SoLuongTrongKho > 0 and TenHangHoa like N'" + autoCompleteTextTenHangHoa.Text + "%'", "Hang hoa").Tables["Hang hoa"];
+                {
+                    dataGridViewHangHoa.DataSource = dalHoaDon.searchHangHoa(autoCompleteTextTenHangHoa.Text.Trim());
+                }
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace QL_CuaHangNongSan
                 if (e.Node.Text.Equals("Tất cả loại hàng hóa") == true)
                     taiGridViewHangHoa();
                 else
-                    dataGridViewHangHoa.DataSource = this.link.comManTable("select MaHangHoa as N'Mã hàng hóa', TenHangHoa as N'Tên hàng hóa', GiaBan as N'Giá bán', DonVi as N'Đơn vị', SoluongTrongKho  as N'Số lượng'  from KhoHang, LoaiHangHoa where SoLuongTrongKho > 0 and LoaiHangHoa.TenLoaiHangHoa LIKE N'" + e.Node.Text + "%' and KhoHang.MaLoaiHangHoa = LoaiHangHoa.MaLoaiHangHoa", "Loai hang hoa").Tables["Loai hang hoa"];
+                    dataGridViewHangHoa.DataSource = dalHoaDon.getHangHoa(e.Node.Text);
             }
             catch (Exception ex)
             {
@@ -306,27 +306,27 @@ namespace QL_CuaHangNongSan
 
         private void frmHoaDon_Load(object sender, EventArgs e)
         {
-            try
-            {
-                string comm = "select count(*) from HoaDon";
-                int soLuongHoaDon = (int)Int64.Parse(this.link.comMandScalar(comm));
-                txtMaHoaDon.Text = taoMaHoaDon();
-                txtNhanVien.Text = timTenNhanVien(this.manv);
-                loadComBoBoxKhachHang();
-                dateTimeInput1.Value = DateTime.Now;
-                txtGio.Text = dateTimeInput1.Value.ToShortTimeString();
-                /////////
-                lstGioHang.Items.Clear();
-                txtTienHang.Text = "0";
-                txtGiamGia.Text = "0";
-                txtPhanTramGiamGia.Text = "0";
-                txtTongGiaTriGioHang.Text = "0";
-                txtTienTraLai.Text = "0";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //try
+            //{
+            //    string comm = "select count(*) from HoaDon";
+            //    int soLuongHoaDon = (int)Int64.Parse(this.link.comMandScalar(comm));
+            //    txtMaHoaDon.Text = taoMaHoaDon();
+            //    txtNhanVien.Text = timTenNhanVien(this.manv);
+            //    loadComBoBoxKhachHang();
+            //    dateTimeInput1.Value = DateTime.Now;
+            //    txtGio.Text = dateTimeInput1.Value.ToShortTimeString();
+            //    /////////
+            //    lstGioHang.Items.Clear();
+            //    txtTienHang.Text = "0";
+            //    txtGiamGia.Text = "0";
+            //    txtPhanTramGiamGia.Text = "0";
+            //    txtTongGiaTriGioHang.Text = "0";
+            //    txtTienTraLai.Text = "0";
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
 
         public void loadComBoBoxKhachHang() 

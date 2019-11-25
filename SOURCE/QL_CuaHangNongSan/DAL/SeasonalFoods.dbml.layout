@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.375, 11.625" name="SeasonalFoods">
+  <DataContextMoniker Name="/SeasonalFoodsDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f69f3489-33b4-4ae3-b171-d2b4486fce2b" absoluteBounds="4, 2.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/TAI_KHOAN" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5f05f11c-334e-46a0-9804-7782688275ff" absoluteBounds="4.015, 3.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9b661324-84ff-4a0d-a784-5598dd91254c" absoluteBounds="0.875, 2.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/NHANVIEN" />
+      <nestedChildShapes>
+        <elementListCompartment Id="374b351e-0ffa-4490-85f6-af8c928fad24" absoluteBounds="0.89000000000000012, 2.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.875 : 3.41429768880208); (4 : 3.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SeasonalFoodsDataContext/NHANVIEN/NHANVIEN_TAI_KHOAN" />
+      <nodes>
+        <classShapeMoniker Id="9b661324-84ff-4a0d-a784-5598dd91254c" />
+        <classShapeMoniker Id="f69f3489-33b4-4ae3-b171-d2b4486fce2b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="552ce1e4-45ab-46b6-b152-3952b7439b50" absoluteBounds="0.75, 10.125, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/MAN_HINH" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c7c6211f-3ffa-4a58-aeaf-9680b6572cbf" absoluteBounds="0.765, 10.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="146d4244-f547-476f-bb62-fb691185c582" absoluteBounds="7.125, 4.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/NGUOIDUNG_NHOM_ND" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fe0abc5f-39fd-4498-862a-a72b05ef4aa5" absoluteBounds="7.14, 5.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="94fce486-ba63-4ed5-a6b3-71b56e232fa9" absoluteBounds="0.75, 7.125, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/NHOM_NGUOI_DUNG" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a50e2a18-fa71-457b-95e4-5a0ede3bbf70" absoluteBounds="0.765, 7.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e316794f-fa06-430f-a010-74c35eb52b45" absoluteBounds="3.5, 7.125, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/PHAN_QUYEN" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7e11164b-5283-4898-882d-6df454de46a2" absoluteBounds="3.515, 7.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6 : 3.41429768880208); (8.125 : 3.41429768880208); (8.125 : 4.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SeasonalFoodsDataContext/TAI_KHOAN/TAI_KHOAN_NGUOIDUNG_NHOM_ND" />
+      <nodes>
+        <classShapeMoniker Id="f69f3489-33b4-4ae3-b171-d2b4486fce2b" />
+        <classShapeMoniker Id="146d4244-f547-476f-bb62-fb691185c582" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 7.125); (1.75 : 5.56814697265625); (7.125 : 5.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SeasonalFoodsDataContext/NHOM_NGUOI_DUNG/NHOM_NGUOI_DUNG_NGUOIDUNG_NHOM_ND" />
+      <nodes>
+        <classShapeMoniker Id="94fce486-ba63-4ed5-a6b3-71b56e232fa9" />
+        <classShapeMoniker Id="146d4244-f547-476f-bb62-fb691185c582" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 10.7219962565104); (4.5 : 10.7219962565104); (4.5 : 8.5112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SeasonalFoodsDataContext/MAN_HINH/MAN_HINH_PHAN_QUYEN" />
+      <nodes>
+        <classShapeMoniker Id="552ce1e4-45ab-46b6-b152-3952b7439b50" />
+        <classShapeMoniker Id="e316794f-fa06-430f-a010-74c35eb52b45" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.81814697265625); (3.5 : 7.81814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SeasonalFoodsDataContext/NHOM_NGUOI_DUNG/NHOM_NGUOI_DUNG_PHAN_QUYEN" />
+      <nodes>
+        <classShapeMoniker Id="94fce486-ba63-4ed5-a6b3-71b56e232fa9" />
+        <classShapeMoniker Id="e316794f-fa06-430f-a010-74c35eb52b45" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="9422b7c2-8a31-4146-9181-f338b1aa32df" absoluteBounds="7.375, 1.25, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/DANH_MUC_SP" />
+      <nestedChildShapes>
+        <elementListCompartment Id="82d391ad-8b10-441a-8c55-0f4a09b164be" absoluteBounds="7.39, 1.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3d5f270c-ae06-4ad4-86ef-1ff9389c71d1" absoluteBounds="10.125, 0.875, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/SeasonalFoodsDataContext/HANGHOA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f74ed4d4-2cde-406c-94fe-cdac6366fc99" absoluteBounds="10.14, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.375 : 1.84699625651042); (10.125 : 1.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SeasonalFoodsDataContext/DANH_MUC_SP/DANH_MUC_SP_HANGHOA" />
+      <nodes>
+        <classShapeMoniker Id="9422b7c2-8a31-4146-9181-f338b1aa32df" />
+        <classShapeMoniker Id="3d5f270c-ae06-4ad4-86ef-1ff9389c71d1" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

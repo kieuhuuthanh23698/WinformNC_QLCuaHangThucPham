@@ -68,11 +68,6 @@
             this.autoCompleteTextTenHangHoa = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewHangHoa = new DevComponents.DotNetBar.Controls.DataGridViewX();
-            this.MaHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonVi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeInput1 = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.numericThem = new System.Windows.Forms.NumericUpDown();
@@ -81,6 +76,14 @@
             this.btnThanhToan = new DevComponents.DotNetBar.ButtonX();
             this.txtGio = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.MaHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonVi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGiam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTang)).BeginInit();
@@ -568,6 +571,9 @@
             this.dataGridViewHangHoa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewHangHoa.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaHangHoa,
+            this.Column4,
+            this.Column2,
+            this.Column3,
             this.TenHangHoa,
             this.GiaBan,
             this.DonVi,
@@ -592,49 +598,6 @@
             this.dataGridViewHangHoa.Size = new System.Drawing.Size(576, 482);
             this.dataGridViewHangHoa.TabIndex = 102;
             this.dataGridViewHangHoa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHangHoa_CellDoubleClick);
-            // 
-            // MaHangHoa
-            // 
-            this.MaHangHoa.DataPropertyName = "Mã hàng hóa";
-            this.MaHangHoa.FillWeight = 75F;
-            this.MaHangHoa.HeaderText = "Mã hàng hóa";
-            this.MaHangHoa.Name = "MaHangHoa";
-            this.MaHangHoa.ReadOnly = true;
-            this.MaHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // TenHangHoa
-            // 
-            this.TenHangHoa.DataPropertyName = "Tên hàng hóa";
-            this.TenHangHoa.FillWeight = 225F;
-            this.TenHangHoa.HeaderText = "Tên hàng hóa";
-            this.TenHangHoa.Name = "TenHangHoa";
-            this.TenHangHoa.ReadOnly = true;
-            this.TenHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // GiaBan
-            // 
-            this.GiaBan.DataPropertyName = "Giá bán";
-            this.GiaBan.FillWeight = 50F;
-            this.GiaBan.HeaderText = "GIá bán";
-            this.GiaBan.Name = "GiaBan";
-            this.GiaBan.ReadOnly = true;
-            this.GiaBan.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // DonVi
-            // 
-            this.DonVi.DataPropertyName = "Đơn vị";
-            this.DonVi.FillWeight = 50F;
-            this.DonVi.HeaderText = "Đơn vị";
-            this.DonVi.Name = "DonVi";
-            this.DonVi.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Số lượng";
-            this.Column1.FillWeight = 50F;
-            this.Column1.HeaderText = "Số lượng";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             // 
             // dateTimeInput1
             // 
@@ -785,6 +748,73 @@
             this.label10.TabIndex = 110;
             this.label10.Text = "GIỜ";
             // 
+            // MaHangHoa
+            // 
+            this.MaHangHoa.DataPropertyName = "MASP";
+            this.MaHangHoa.FillWeight = 75F;
+            this.MaHangHoa.HeaderText = "Mã hàng hóa";
+            this.MaHangHoa.Name = "MaHangHoa";
+            this.MaHangHoa.ReadOnly = true;
+            this.MaHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "DANH_MUC_SP";
+            this.Column4.HeaderText = "Column4";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "MALOAI";
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "DANHMUC";
+            this.Column3.HeaderText = "Column3";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Visible = false;
+            // 
+            // TenHangHoa
+            // 
+            this.TenHangHoa.DataPropertyName = "TENSP";
+            this.TenHangHoa.FillWeight = 225F;
+            this.TenHangHoa.HeaderText = "Tên hàng hóa";
+            this.TenHangHoa.Name = "TenHangHoa";
+            this.TenHangHoa.ReadOnly = true;
+            this.TenHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.DataPropertyName = "GIA_BAN";
+            this.GiaBan.FillWeight = 50F;
+            this.GiaBan.HeaderText = "GIá bán";
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.ReadOnly = true;
+            this.GiaBan.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // DonVi
+            // 
+            this.DonVi.DataPropertyName = "DVT";
+            this.DonVi.FillWeight = 50F;
+            this.DonVi.HeaderText = "Đơn vị";
+            this.DonVi.Name = "DonVi";
+            this.DonVi.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "SOLUONG";
+            this.Column1.FillWeight = 50F;
+            this.Column1.HeaderText = "Số lượng";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
             // frmHoaDon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -879,16 +909,15 @@
         private DevComponents.DotNetBar.ButtonX btnGiamSoLuong;
         private DevComponents.DotNetBar.ButtonX btnTangSoLuong;
         private DevComponents.DotNetBar.ButtonX btnXoaHangTrongGio;
+        private System.Windows.Forms.TextBox txtGio;
+        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaHangHoa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenHangHoa;
         private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
         private System.Windows.Forms.DataGridViewTextBoxColumn DonVi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.TextBox txtGio;
-        private System.Windows.Forms.Label label10;
-
-
-
-
     }
 }

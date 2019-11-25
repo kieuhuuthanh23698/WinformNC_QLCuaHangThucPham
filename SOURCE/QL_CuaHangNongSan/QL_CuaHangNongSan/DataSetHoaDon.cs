@@ -1,4 +1,4 @@
-﻿namespace QL_CuaHangNongSan {
+﻿namespace QuanLySieuThi {
     
     
     public partial class DataSetHoaDon {

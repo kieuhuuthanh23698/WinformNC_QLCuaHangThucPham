@@ -41,6 +41,7 @@
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.txtPass = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnThoat = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +77,7 @@
             this.btnConn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnConn.Symbol = "";
             this.btnConn.TabIndex = 1;
-            this.btnConn.Text = "Connect";
+            this.btnConn.Text = "Save";
             this.btnConn.Click += new System.EventHandler(this.btnConn_Click);
             // 
             // cbbDataSource
@@ -130,7 +131,7 @@
             this.cbbIni.Name = "cbbIni";
             this.cbbIni.Size = new System.Drawing.Size(285, 24);
             this.cbbIni.TabIndex = 4;
-            this.cbbIni.Leave += new System.EventHandler(this.txtIni_Leave);
+            this.cbbIni.DropDown += new System.EventHandler(this.cbbIni_DropDown);
             // 
             // labelX4
             // 
@@ -200,6 +201,24 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // btnThoat
+            // 
+            this.btnThoat.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnThoat.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnThoat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnThoat.FocusCuesEnabled = false;
+            this.btnThoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThoat.Location = new System.Drawing.Point(360, 329);
+            this.btnThoat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2);
+            this.btnThoat.Size = new System.Drawing.Size(137, 36);
+            this.btnThoat.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnThoat.Symbol = "";
+            this.btnThoat.TabIndex = 10;
+            this.btnThoat.Text = "Exit";
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
             // frmKetNoi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -207,6 +226,7 @@
             this.BackgroundImage = global::QL_CuaHangNongSan.Properties.Resources.bg_5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(527, 391);
+            this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.labelX5);
             this.Controls.Add(this.txtPass);
             this.Controls.Add(this.labelX4);
@@ -225,7 +245,6 @@
             this.Name = "frmKetNoi";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DATABASE CONNECTION";
-            this.Load += new System.EventHandler(this.frmKetNoi_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -245,6 +264,6 @@
         private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.Controls.TextBoxX txtPass;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-
+        private DevComponents.DotNetBar.ButtonX btnThoat;
     }
 }

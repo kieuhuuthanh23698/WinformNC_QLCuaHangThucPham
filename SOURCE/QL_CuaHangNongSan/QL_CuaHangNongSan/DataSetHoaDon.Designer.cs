@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace QL_CuaHangNongSan {
+namespace QuanLySieuThi {
     
     
     /// <summary>
@@ -1222,7 +1222,7 @@ namespace QL_CuaHangNongSan {
         }
     }
 }
-namespace QL_CuaHangNongSan.DataSetHoaDonTableAdapters {
+namespace QuanLySieuThi.DataSetHoaDonTableAdapters {
     
     
     /// <summary>
@@ -1369,7 +1369,7 @@ namespace QL_CuaHangNongSan.DataSetHoaDonTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::QL_CuaHangNongSan.Properties.Settings.Default.QL_SIEUTHIConnectionString;
+            this._connection.ConnectionString = global::QL_CuaHangNongSan.Properties.Settings.Default.QL_CuaHangNongSanConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

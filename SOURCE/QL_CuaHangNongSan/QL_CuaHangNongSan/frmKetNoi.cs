@@ -7,42 +7,45 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
+using DAL;
 
 namespace QL_CuaHangNongSan
 {
     public partial class frmKetNoi : Form
     {
+        DAL_CauHinh dalCauHinh = new DAL_CauHinh();
+        DAL_Login dalLogin = new DAL_Login();
+
         public frmKetNoi()
         {
             InitializeComponent();
-            SqlDataSourceEnumerator instance = SqlDataSourceEnumerator.Instance;
-            System.Data.DataTable table = instance.GetDataSources();
-            foreach (DataRow r in table.Rows)
+            DataTable tb = dalCauHinh.getServerName();
+            if (tb.Rows.Count > 0)
             {
-                string SQLServer = r["ServerName"].ToString();
-                string Instance = r["InstanceName"].ToString();
-                if (Instance != null && !string.IsNullOrEmpty(Instance))
+                foreach (DataRow r in tb.Rows)
                 {
-                    cbbDataSource.Items.Add(SQLServer + "\\" + Instance);
+                    string SQLServer = r["ServerName"].ToString();
+                    string Instance = r["InstanceName"].ToString();
+                    if (Instance != null && !string.IsNullOrEmpty(Instance))
+                    {
+                        cbbDataSource.Items.Add(SQLServer + "\\" + Instance);
+                    }
+                    else
+                        cbbDataSource.Items.Add(SQLServer);
                 }
-                else
-                    cbbDataSource.Items.Add(SQLServer);
+                cbbDataSource.SelectedIndex = 0;
             }
-            cbbDataSource.SelectedIndex = 0;
         }
 
         private void btnConn_Click(object sender, EventArgs e)
         {
             if (cbbDataSource.Text != "" && txtID.Text != "" && cbbIni.Text != "" && txtPass.Text != "")
             {
-                this.errorProvider1.Clear();
-                //tạo chuỗi kết nối
-                string chuoiKetNoi = @"Data Source=" + cbbDataSource.Text + ";Initial Catalog=" + cbbIni.Text + ";User ID=" + txtID.Text + ";Password=" + txtPass.Text;
-                KetNoiDuLieu link = new KetNoiDuLieu(chuoiKetNoi);
-                if (link.Connec() == true)
+               this.errorProvider1.Clear();
+               dalCauHinh.saveConfig(cbbDataSource.Text, cbbIni.Text, txtID.Text, txtPass.Text);
+               if (dalLogin.checkConfig() == 0)
                 {
-                    //đưa kết nối vào form login
-                    frmLogin frmlogin = new frmLogin(link);
+                    frmLogin frmlogin = new frmLogin();
                     this.Hide();
                     frmlogin.Show();
                 }
@@ -51,18 +54,18 @@ namespace QL_CuaHangNongSan
                     MessageBox.Show("Kết nối thất bại !", "CONNECTION", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else 
+            else
             {
                 if (cbbDataSource.Text == "")
                     this.errorProvider1.SetError(cbbDataSource, "Bạn không được để trống tên server của database !");
                 if (txtID.Text == "")
-                    this.errorProvider1.SetError(txtID,"Không được để trống !");
+                    this.errorProvider1.SetError(txtID, "Không được để trống !");
                 if (cbbIni.Text == "")
-                    this.errorProvider1.SetError(cbbIni,"Không được để trống username đăng nhập vào server !");
+                    this.errorProvider1.SetError(cbbIni, "Không được để trống username đăng nhập vào server !");
                 if (txtPass.Text == "")
                     this.errorProvider1.SetError(txtPass, "Không được để trống mật khẩu đăng nhập vào server !");
             }
-        }
+            }
 
         private void txtDataSource_Leave(object sender, EventArgs e)
         {
@@ -96,29 +99,27 @@ namespace QL_CuaHangNongSan
                 this.errorProvider1.Clear();
         }
 
-        private void frmKetNoi_Load(object sender, EventArgs e)
+        private void btnThoat_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Kiểm tra chuỗi kết nối đã lưu !");
-            //if (Properties.Settings.Default.QL_SIEUTHIConnectionString == "")
-            //{
-            //    MessageBox.Show("Chuỗi kết nối không tồn tại !\nHãy thiết lập chuỗi kết nối !");
-            //    return; 
-            //}
-            //try {
-            //        KetNoiDuLieu link = new KetNoiDuLieu(Properties.Settings.Default.QL_SIEUTHIConnectionString);
-            //        if (link.Connec() == true)
-            //        {
-            //            MessageBox.Show("Kết nối với Database thành công !");
-            //            Program.login = new frmLogin(link);
-            //            this.Close();
-            //            Program.login.Show();
-            //        }
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show("Quá trình kiểm tra chuỗi kết nối gặp lỗi !\n" + ex.ToString());
-            //    return;
-            //}
+            Application.Exit();
+        }
+
+        private void cbbIni_DropDown(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable tb = dalCauHinh.getDatabaseName(cbbDataSource.Text, txtID.Text, txtPass.Text);
+                if (tb != null)
+                {
+                    cbbIni.DataSource = tb;
+                    cbbIni.DisplayMember = "name";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
     }
 }

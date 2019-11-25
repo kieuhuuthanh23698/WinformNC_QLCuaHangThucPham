@@ -141,7 +141,7 @@
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(216, 29);
             this.txtTenDangNhap.TabIndex = 1;
-            this.txtTenDangNhap.Text = "2001160343";
+            this.txtTenDangNhap.Text = "1";
             this.txtTenDangNhap.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTenDangNhap_KeyPress);
             this.txtTenDangNhap.Leave += new System.EventHandler(this.txtTenDangNhap_Leave);
             // 
@@ -176,7 +176,7 @@
             this.txtMatKhau.PasswordChar = '*';
             this.txtMatKhau.Size = new System.Drawing.Size(216, 29);
             this.txtMatKhau.TabIndex = 2;
-            this.txtMatKhau.Text = "23061998";
+            this.txtMatKhau.Text = "1";
             this.txtMatKhau.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMatKhau_KeyPress);
             this.txtMatKhau.Leave += new System.EventHandler(this.txtMatKhau_Leave);
             // 

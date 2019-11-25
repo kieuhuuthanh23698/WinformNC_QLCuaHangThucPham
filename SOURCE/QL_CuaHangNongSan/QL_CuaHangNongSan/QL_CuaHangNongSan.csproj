@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QL_CuaHangNongSan</RootNamespace>
     <AssemblyName>QL_CuaHangNongSan</AssemblyName>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,17 +32,28 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActiproSoftware.Shared.Net20, Version=1.0.102.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="ActiproSoftware.SyntaxEditor.Addons.DotNet.Net20, Version=4.0.283.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.SyntaxEditor.Net20, Version=4.0.283.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.DotNetBar2, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DAL">
+      <HintPath>..\DAL\bin\Debug\DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DotNetBar for Windows Forms\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -49,13 +62,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataSetHoaDon.cs">
-      <DependentUpon>DataSetHoaDon.xsd</DependentUpon>
+    <Compile Include="DataSetHoaDon.cs" />
+    <Compile Include="DataSetHoaDon.Designer.cs" />
+    <Compile Include="frmNhapHang.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataSetHoaDon.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetHoaDon.xsd</DependentUpon>
+    <Compile Include="frmNhapHang.Designer.cs">
+      <DependentUpon>frmNhapHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPhanQuyen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhanQuyen.Designer.cs">
+      <DependentUpon>frmPhanQuyen.cs</DependentUpon>
     </Compile>
     <Compile Include="frmReportHoaDon.cs">
       <SubType>Form</SubType>
@@ -225,17 +244,7 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="DataSetHoaDon.xsc">
-      <DependentUpon>DataSetHoaDon.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetHoaDon.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetHoaDon.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSetHoaDon.xss">
-      <DependentUpon>DataSetHoaDon.xsd</DependentUpon>
-    </None>
+    <None Include="DataSetHoaDon.xsd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
