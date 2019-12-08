@@ -14,357 +14,206 @@ namespace QL_CuaHangNongSan
     {
         DAL_Main dal_main = new DAL_Main();
 
-
-        //public string timTenNhanVien(string manv)
-        //{
-        //    try
-        //    {
-        //        return link.comMandScalar("select TenNhanVien from NhanVien where MaNhanVien = '" + manv + "'");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.ToString());
-        //    }
-        //    return "";
-        //}
-
         public frmMain()
         {
             InitializeComponent();
-            lblTenNhanVien.Text = dal_main.getNameNV(frmLogin.nhanVien.MANV);
+            txtNameNV.Text = dal_main.getNameNV(frmLogin.nhanVien.MANV);
             if(Program.frmHoaDon == null || Program.frmHoaDon.IsDisposed)
                 Program.frmHoaDon = new frmHoaDon();
             Program.frmHoaDon.Dock = DockStyle.Fill;
             Program.frmHoaDon.TopLevel = false;
             dockContainerItem1.Control.Controls.Add(Program.frmHoaDon);
             Program.frmHoaDon.Show();
+            this.MinimumSize = this.MaximumSize;
         }
 
         private void logout(object sender, EventArgs e)
         {
-            //this.Hide();
-            //frmLogin frmLogin = new frmLogin();
-            //frmLogin.Show();
+            frmLogin.nhanVien = null;
+            if (Program.frmLogin == null || Program.frmLogin.IsDisposed)
+                Program.frmLogin = new frmLogin();
+            this.Visible = false;
+            Program.frmLogin.Show();
         }
 
         private void exit(object sender, EventArgs e)
         {
-            //DialogResult result = MessageBox.Show("Bạn có muốn thoát không ?", "EXIT", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            //if (result == DialogResult.Yes)
-            //    Application.Exit();    
+            DialogResult result = MessageBox.Show("Bạn có muốn thoát không ?", "EXIT", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+                Application.Exit();
         }
 
         private void changePass(object sender, EventArgs e)
         {
-            //frmDoiMatKhau frmChangePass = new frmDoiMatKhau(this.manv,this.link);
-            //frmChangePass.ShowDialog();
+            if (Program.frmDoiMatKhau == null || Program.frmDoiMatKhau.IsDisposed)
+                Program.frmDoiMatKhau = new frmDoiMatKhau();
+            Program.frmDoiMatKhau.ShowDialog();
         }
         
         private void openHoaDon(object sender, EventArgs e)
         {
-            //kiểm tra xem đã có tab này chưa
-            //bool tonTai = false;
-            //for (int i = 0; i < tab.Items.Count; i++)
-            //{
-            //    if (tab.Items[i].ToString() == "Hóa đơn")
-            //    {
-            //        tonTai = true;
-            //        break;
-            //    }
-            //}
-            //if (tonTai == false)//nếu chưa có thì mở tab này lên
-            //{
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Hóa đơn", "Hóa đơn");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.bill_icon;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Hóa đơn";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmHoaDon f = new frmHoaDon(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-            //else
-            //{
-            //    tab.Items.Clear();
+            menuStrip2.Visible = true;
+            for (int i = 0; i < tab.Items.Count; i++)
+            {
+                if (tab.Items[i].ToString() == "Hóa đơn")
+                {
+                    tab.Items[i].Visible = true;
+                    menuStrip2.Show();
+                    return;
+                }
+            }
+            DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Hóa đơn", "Hóa đơn");
+            tab.Items.Add(item);
+            Image a = global::QL_CuaHangNongSan.Properties.Resources.bill_icon;
+            item.Image = a;
+            item.Selected = true;
+            DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
+            panel.Name = "Hóa đơn";
+            item.Control = new Control();
+            item.Control = panel;
 
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Hóa đơn", "Hóa đơn");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.bill_icon;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Hóa đơn";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmHoaDon f = new frmHoaDon(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
+            if (Program.frmHoaDon == null || Program.frmHoaDon.IsDisposed)
+                Program.frmHoaDon = new frmHoaDon();
+            Program.frmHoaDon.Dock = DockStyle.Fill;
+            Program.frmHoaDon.TopLevel = false;
+            item.Control.Controls.Add(Program.frmHoaDon);
+            Program.frmHoaDon.Show();
+            menuStrip2.Show();
         }
 
         private void openDanhMucMatHang(object sender, EventArgs e)
         {
-            //kiểm tra xem đã có tab này chưa
-            //bool tonTai = false;
-            //for(int i = 0; i < tab.Items.Count; i++)
-            //    if (tab.Items[i].ToString() == "Danh mục mặt hàng")
-            //    {
-            //        tonTai = true;
-            //        break;
-            //    }
-
-            ////nếu chưa có thì tạo và thêm vô
-            //if (tonTai == false)
-            //{
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Danh mục mặt hàng", "Danh mục mặt hàng");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.hang_hoa;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Danh mục mặt hàng";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmDanhMucMatHang f = new frmDanhMucMatHang(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-            //else
-            //{
-            //    tab.Items.Clear();
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Danh mục mặt hàng", "Danh mục mặt hàng");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.hang_hoa;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Danh mục mặt hàng";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmDanhMucMatHang f = new frmDanhMucMatHang(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
+            for (int i = 0; i < tab.Items.Count; i++)
+            if (tab.Items[i].ToString() == "Danh mục mặt hàng")
+            {
+                tab.Items[i].Visible = true;
+                menuStrip2.Show();
+                return;
+            }
+            DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Danh mục mặt hàng", "Danh mục mặt hàng");
+            tab.Items.Add(item);
+            Image a = global::QL_CuaHangNongSan.Properties.Resources.hang_hoa;
+            item.Image = a;
+            item.Selected = true;
+            DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
+            panel.Name = "Danh mục mặt hàng";
+            item.Control = new Control();
+            item.Control = panel;
+            if (Program.frmDanhMucMatHang == null || Program.frmDanhMucMatHang.IsDisposed)
+                Program.frmDanhMucMatHang = new frmDanhMucMatHang();
+            Program.frmDanhMucMatHang.Dock = DockStyle.Fill;
+            Program.frmDanhMucMatHang.TopLevel = false;
+            item.Control.Controls.Add(Program.frmDanhMucMatHang);
+            Program.frmDanhMucMatHang.Show();
+            menuStrip2.Show();
         }
 
         private void openDanhMucKhachHang(object sender, EventArgs e)
         {
-            //kiểm tra xem đã có tab này chưa
-            //bool tonTai = false;
-            //for(int i = 0; i < tab.Items.Count; i++)
-            //    if (tab.Items[i].ToString() == "Danh mục khách hàng")
-            //    {
-            //        tonTai = true;
-            //        break;
-            //    }
-
-            ////nếu chưa có thì tạo và thêm vô
-            //if (tonTai == false)
-            //{
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("", "Danh mục khách hàng");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.khach_hang_2;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Danh mục khách hàng";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmDanhMucKhachHang f = new frmDanhMucKhachHang(this.link);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-            //else
-            //{
-            //    tab.Items.Clear();
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("", "Danh mục khách hàng");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.khach_hang_2;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Danh mục khách hàng";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmDanhMucKhachHang f = new frmDanhMucKhachHang(this.link);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
+            for (int i = 0; i < tab.Items.Count; i++)
+            if (tab.Items[i].ToString() == "Danh mục khách hàng")
+            {
+                tab.Items[i].Visible = true;
+                    menuStrip2.Show();
+                    return;
+            }
+            DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("", "Danh mục khách hàng");
+            tab.Items.Add(item);
+            Image a = global::QL_CuaHangNongSan.Properties.Resources.khach_hang_2;
+            item.Image = a;
+            item.Selected = true;
+            DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
+            panel.Name = "Danh mục khách hàng";
+            item.Control = new Control();
+            item.Control = panel;
+            if (Program.frmDanhMucKhachHang == null || Program.frmDanhMucKhachHang.IsDisposed)
+                Program.frmDanhMucKhachHang = new frmDanhMucKhachHang();
+            Program.frmDanhMucKhachHang.Dock = DockStyle.Fill;
+            Program.frmDanhMucKhachHang.TopLevel = false;
+            item.Control.Controls.Add(Program.frmDanhMucKhachHang);
+            Program.frmDanhMucKhachHang.Show();
+            menuStrip2.Show();
         }
 
         private void openDanhMucNhanVien(object sender, EventArgs e)
         {
-            //kiểm tra xem đã có tab này chưa
-            //bool tonTai = false;
-            //for(int i = 0; i < tab.Items.Count; i++)
-            //    if (tab.Items[i].ToString() == "Danh mục nhân viên")
-            //    {
-            //        tonTai = true;
-            //        break;
-            //    }
-
-            ////nếu chưa có thì tạo và thêm vô
-            //if (tonTai == false)
-            //{
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Danh mục nhân viên", "Danh mục nhân viên");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.nhan_vien;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Danh mục nhân viên";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmDanhMucNhanVien f = new frmDanhMucNhanVien(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-            //else
-            //{
-            //    tab.Items.Clear();
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Danh mục nhân viên", "Danh mục nhân viên");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.nhan_vien;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Danh mục nhân viên";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmDanhMucNhanVien f = new frmDanhMucNhanVien(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
+            for (int i = 0; i < tab.Items.Count; i++)
+            if (tab.Items[i].ToString() == "Danh mục nhân viên")
+            {
+                tab.Items[i].Visible = true;
+                    menuStrip2.Show();
+                    return;
+            }
+            DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Danh mục nhân viên", "Danh mục nhân viên");
+            tab.Items.Add(item);
+            Image a = global::QL_CuaHangNongSan.Properties.Resources.nhan_vien;
+            item.Image = a;
+            item.Selected = true;
+            DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
+            panel.Name = "Danh mục nhân viên";
+            item.Control = new Control();
+            item.Control = panel;
+            if (Program.frmDanhMucNhanVien == null || Program.frmDanhMucNhanVien.IsDisposed)
+                Program.frmDanhMucNhanVien = new frmDanhMucNhanVien();
+            Program.frmDanhMucNhanVien.Dock = DockStyle.Fill;
+            Program.frmDanhMucNhanVien.TopLevel = false;
+            item.Control.Controls.Add(Program.frmDanhMucNhanVien);
+            Program.frmDanhMucNhanVien.Show();
+            menuStrip2.Show();
         }
 
         private void openThongKeHoaDon(object sender, EventArgs e)
         {
-            //kiểm tra xem đã có tab này chưa
-            //bool tonTai = false;
-            //for(int i = 0; i < tab.Items.Count; i++)
-            //    if (tab.Items[i].ToString() == "Thống kê hóa đơn")
-            //    {
-            //        tonTai = true;
-            //        break;
-            //    }
-
-            ////nếu chưa có thì tạo và thêm vô
-            //if (tonTai == false)
-            //{
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Thống kê hóa đơn", "Thống kê hóa đơn");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.thongkeHoaDon;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Thống kê hóa đơn";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmThongKeHoaDon f = new frmThongKeHoaDon(this.link);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-            //else
-            //{
-            //    tab.Items.Clear();
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Thống kê hóa đơn", "Thống kê hóa đơn");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.thongkeHoaDon;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Thống kê hóa đơn";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmThongKeHoaDon f = new frmThongKeHoaDon(this.link);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-        }
-
-        private void openThongTinCuaHang(object sender, EventArgs e)
-        {
-            //kiểm tra xem đã có tab này chưa
-            //bool tonTai = false;
-            //for(int i = 0; i < tab.Items.Count; i++)
-            //    if (tab.Items[i].ToString() == "Thông tin cửa hàng")
-            //    {
-            //        tonTai = true;
-            //        break;
-            //    }
-
-            ////nếu chưa có thì tạo và thêm vô
-            //if (tonTai == false)
-            //{
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Thông tin cửa hàng", "Thông tin cửa hàng");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.store_icon;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Thông tin cửa hàng";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmThongTinSieuThi f = new frmThongTinSieuThi(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-            //else
-            //{
-            //    tab.Items.Clear();
-            //    DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Thông tin cửa hàng", "Thông tin cửa hàng");
-            //    tab.Items.Add(item);
-            //    Image a = global::QL_CuaHangNongSan.Properties.Resources.store_icon;
-            //    item.Image = a;
-            //    item.Selected = true;
-            //    DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
-            //    panel.Name = "Thông tin cửa hàng";
-            //    item.Control = new Control();
-            //    item.Control = panel;
-            //    frmThongTinSieuThi f = new frmThongTinSieuThi(this.link, this.manv);
-            //    f.TopLevel = false;
-            //    f.Dock = DockStyle.Fill;
-            //    item.Control.Controls.Add(f);
-            //    f.Show();
-            //}
-        }
+            for (int i = 0; i < tab.Items.Count; i++)
+            if (tab.Items[i].ToString() == "Thống kê hóa đơn")
+            {
+                tab.Items[i].Visible = true;
+                    menuStrip2.Show();
+                    return;
+            }
+            DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("Thống kê hóa đơn", "Thống kê hóa đơn");
+            tab.Items.Add(item);
+            Image a = global::QL_CuaHangNongSan.Properties.Resources.thongkeHoaDon;
+            item.Image = a;
+            item.Selected = true;
+            DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
+            panel.Name = "Thống kê hóa đơn";
+            item.Control = new Control();
+            item.Control = panel;
+            if (Program.frmThongKeHoaDon == null || Program.frmThongKeHoaDon.IsDisposed)
+                Program.frmThongKeHoaDon = new frmThongKeHoaDon();
+            Program.frmThongKeHoaDon.Dock = DockStyle.Fill;
+            Program.frmThongKeHoaDon.TopLevel = false;
+            item.Control.Controls.Add(Program.frmThongKeHoaDon);
+            Program.frmThongKeHoaDon.Show();
+            menuStrip2.Show();
+        }       
 
         private void bar2_DockTabClosed(object sender, DevComponents.DotNetBar.DockTabClosingEventArgs e)
         {
-            //if (tab.Items.Count == 1)
-            //    tab.Items.Clear();
-            //tab.Show();
+            for (int i = 0; i < tab.Items.Count; i++)
+            if (tab.Items[i].ToString() == e.DockContainerItem.Text)
+            {
+                tab.Items[i].Visible = false;
+                break;
+            }
+            e.Cancel = true;
+            tab.Show();
+            menuStrip2.Show();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void danhMụcNhânViênToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            openDanhMucNhanVien(null, null);
+        }
+
+        private void tHÔNGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
         }
     }
 }

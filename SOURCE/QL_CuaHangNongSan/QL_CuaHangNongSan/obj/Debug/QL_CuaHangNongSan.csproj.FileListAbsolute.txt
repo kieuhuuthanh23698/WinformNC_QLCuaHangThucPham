@@ -11,6 +11,9 @@ D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNon
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\DAL.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\DevComponents.DotNetBar2.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\FlashControlV71.dll
+D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\Syncfusion.Compression.Base.dll
+D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\Syncfusion.DocIO.Base.dll
+D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\Syncfusion.XlsIO.Base.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\ActiproSoftware.WinUICore.Net20.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
@@ -28,8 +31,10 @@ D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNon
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\stdole.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\DAL.pdb
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\DevComponents.DotNetBar2.xml
+D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\Syncfusion.Compression.Base.xml
+D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\Syncfusion.DocIO.Base.xml
+D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\bin\Debug\Syncfusion.XlsIO.Base.xml
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.csprojResolveAssemblyReference.cache
-D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmReportHoaDon.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmThemSanPham.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmThemNhomMatHang.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmDoiTenNhomMatHang.resources
@@ -44,7 +49,6 @@ D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNon
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmNhapHangHoaVaoKho.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.Properties.Resources.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmThongKeHoaDon.resources
-D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmThongTinSieuThi.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.frmMain.resources
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.csproj.GenerateResource.Cache
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\QL_CuaHangNongSan\obj\Debug\QL_CuaHangNongSan.exe

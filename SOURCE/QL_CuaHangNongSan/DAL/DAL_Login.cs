@@ -50,5 +50,16 @@ namespace DAL
             TAI_KHOAN result = context.TAI_KHOANs.Where(tk => tk.TENDN == userName && tk.MATKHAU == passWord).FirstOrDefault();
             return result;
         }
+
+
+        public bool changePassword(string user, string pass) {
+            try {
+                context.TAI_KHOANs.Where(t => t.TENDN == user).FirstOrDefault().MATKHAU = pass;
+                context.SubmitChanges();
+            } catch (Exception) {
+                return false;
+            }
+            return true;
+        }
     }
 }

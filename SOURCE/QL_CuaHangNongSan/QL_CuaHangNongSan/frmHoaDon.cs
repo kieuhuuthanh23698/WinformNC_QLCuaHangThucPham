@@ -33,7 +33,7 @@ namespace QL_CuaHangNongSan
             im.Images.Add(QL_CuaHangNongSan.Properties.Resources.child_node);
             treeView1.ImageList = im;
         }
-
+         
         public void taiGridViewHangHoa()
         {
             try
@@ -45,7 +45,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         public void taiTreeView()
         {
             try
@@ -63,7 +63,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         public void taiAutoCompleteText()
         {
             try
@@ -83,7 +83,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         private void autoCompleteTextTenHangHoa_TextChanged(object sender, EventArgs e)
         {
             try
@@ -92,7 +92,7 @@ namespace QL_CuaHangNongSan
                     taiGridViewHangHoa();
                 else
                 {
-                    dataGridViewHangHoa.DataSource = dalHoaDon.searchHangHoa(autoCompleteTextTenHangHoa.Text.Trim());
+                    dataGridViewHangHoa.DataSource = dalHoaDon.getHangHoa(autoCompleteTextTenHangHoa.Text.Trim());
                 }
             }
             catch (Exception ex)
@@ -100,7 +100,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             try
@@ -115,27 +115,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        public void capNhatKhoHangKhiThem(string tenHangHoa, int soluongThem)
-        {
-            try
-            {
-                int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                int i = 0;
-                if (soluongThem >= soLuongHangHoaNayTrongKho)
-                    i = this.link.query("update KhoHang set SoluongTrongKho = 0 where TenHangHoa = N'" + tenHangHoa + "'");
-                else
-                { //so luong thêm < số lượng hàng hóa này trong kho
-                    int capNhatSoLuongHangHoa = soLuongHangHoaNayTrongKho - soluongThem;
-                    i = this.link.query("update KhoHang set SoluongTrongKho = " + capNhatSoLuongHangHoa + " where TenHangHoa = N'" + tenHangHoa + "'");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
+         
         private void btnThemHangHoaVaoGio_Click(object sender, EventArgs e)
         {
             try
@@ -144,24 +124,18 @@ namespace QL_CuaHangNongSan
                 if (i > -1)
                 {
                     int stt = lstGioHang.Items.Count;
+                    string masp = dataGridViewHangHoa.Rows[i].Cells["MaHangHoa"].Value.ToString();
                     string tenHangHoa = dataGridViewHangHoa.Rows[i].Cells["TenHangHoa"].Value.ToString();
-                    string giaBan = dataGridViewHangHoa.Rows[i].Cells["GiaBan"].Value.ToString();
-                    //nếu mà numberic lờn hơn hoặc bằng số lượng kho kho thì chỉ có thể thêm đúng số lượng còn trong kho và sau khi thêm thì update số lượng về = 0
-                    //còn nếu bé hơn thì thêm và cập nhật lại số lượng hàng hóa đó còn trong kho với giá trị mới = số lượng trong kho - số lượng thêm
+                    string giaBan = dataGridViewHangHoa.Rows[i].Cells["GIA_BAN_1"].Value.ToString();
                     int viTri = timViTriMonHangTrongGio(tenHangHoa);
-                    int timKiem = hangHoaNayCoTrongGioChua(tenHangHoa);//trả về số lượng hàng hóa nếu có trong giỏ
-                    int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                    int soluong;
-                    if ((int)Int64.Parse(numericThem.Value.ToString()) >= soLuongHangHoaNayTrongKho)
-                        soluong = soLuongHangHoaNayTrongKho + timKiem;
-                    else
-                        soluong = (int)Int64.Parse(numericThem.Value.ToString()) + timKiem;
+                    int soLuongHangHoaTrongGio = hangHoaNayCoTrongGioChua(tenHangHoa);
+                    int soluong = (int)Int64.Parse(numericThem.Value.ToString()) + soLuongHangHoaTrongGio;
                     double thanhTien = soluong * Double.Parse(giaBan);
 
-                    if (timKiem == 0)
+                    if (soLuongHangHoaTrongGio == 0)
                     {
                         ListViewItem item = new ListViewItem(stt + "");
-                        string[] subItem = { tenHangHoa, giaBan, soluong + "", thanhTien + "" };
+                        string[] subItem = { tenHangHoa, giaBan, soluong + "", thanhTien + "", masp};
                         item.SubItems.AddRange(subItem);
                         lstGioHang.Items.Add(item);
                     }
@@ -170,10 +144,8 @@ namespace QL_CuaHangNongSan
                         lstGioHang.Items[viTri].SubItems[3].Text = soluong + "";
                         lstGioHang.Items[viTri].SubItems[4].Text = soluong * Double.Parse(giaBan) + "";
                     }
-                    capNhatKhoHangKhiThem(tenHangHoa, (int)Int64.Parse(numericThem.Value.ToString()));
                     numericThem.Value = 1;
                     tinhTien();
-                    taiGridViewHangHoa();
                 }
             }
             catch (Exception ex)
@@ -181,7 +153,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         private void dataGridViewHangHoa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -190,8 +162,9 @@ namespace QL_CuaHangNongSan
                 if (i > -1)
                 {
                     int stt = lstGioHang.Items.Count;
+                    string masp = dataGridViewHangHoa.Rows[i].Cells["MaHangHoa"].Value.ToString();
                     string tenHangHoa = dataGridViewHangHoa.Rows[i].Cells["TenHangHoa"].Value.ToString();
-                    string giaBan = dataGridViewHangHoa.Rows[i].Cells["GiaBan"].Value.ToString();
+                    string giaBan = dataGridViewHangHoa.Rows[i].Cells["GIA_BAN_1"].Value.ToString();
                     int viTri = timViTriMonHangTrongGio(tenHangHoa);
                     int timKiem = hangHoaNayCoTrongGioChua(tenHangHoa);
                     int soluong = 1 + timKiem;
@@ -200,7 +173,7 @@ namespace QL_CuaHangNongSan
                     if (soluong == 1)
                     {
                         ListViewItem item = new ListViewItem(stt + "");
-                        string[] subItem = { tenHangHoa, giaBan, soluong + "", thanhTien + "" };
+                        string[] subItem = { tenHangHoa, giaBan, soluong + "", thanhTien + "", masp};
                         item.SubItems.AddRange(subItem);
                         lstGioHang.Items.Add(item);
                     }
@@ -209,8 +182,6 @@ namespace QL_CuaHangNongSan
                         lstGioHang.Items[viTri].SubItems[3].Text = soluong + "";
                         lstGioHang.Items[viTri].SubItems[4].Text = soluong * Double.Parse(giaBan) + "";
                     }
-                    capNhatKhoHangKhiThem(tenHangHoa, 1);
-                    taiGridViewHangHoa();
                     tinhTien();
                 }
             }
@@ -218,8 +189,8 @@ namespace QL_CuaHangNongSan
             {
                 MessageBox.Show(ex.ToString());
             }
-       }
-
+        }
+         
         public void tinhTien()
         {
             try
@@ -229,13 +200,14 @@ namespace QL_CuaHangNongSan
                 foreach (ListViewItem item in lstGioHang.Items)
                     thanhTien += Double.Parse(item.SubItems[4].Text);
                 txtTienHang.Text = thanhTien + "";
+                txtTichDiem.Text = ((int)thanhTien * 0.005).ToString();
                 //giảm giá
-                if (txtPhanTramGiamGia.Text != "")
-                {
-                    int phantram = (int)Int64.Parse(txtPhanTramGiamGia.Text);
-                    txtGiamGia.Text = Double.Parse(txtTienHang.Text) * phantram / 100 + "";
-                }
-                txtTongGiaTriGioHang.Text = (Double.Parse(txtTienHang.Text) - Double.Parse(txtGiamGia.Text)) + "";
+                //if (txtDungDiemTichLuy.Text != "")
+                //{
+                //    int phantram = (int)Int64.Parse(txtDungDiemTichLuy.Text);
+                //    txtDungDiemTichLuy.Text = Double.Parse(txtTienHang.Text) * phantram * 0.01 + "";
+                //}
+                txtTongGiaTriGioHang.Text = (Double.Parse(txtTienHang.Text) - Double.Parse(txtDungDiemTichLuy.Text)) + "";
                 if (cmbTienKhachDua.Text != "")
                 {
                     txtTienTraLai.Text = (Int64.Parse(cmbTienKhachDua.Text) - Double.Parse(txtTongGiaTriGioHang.Text)) + "";
@@ -246,7 +218,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         public int timViTriMonHangTrongGio(string tenHang)
         {
             foreach (ListViewItem item in lstGioHang.Items)
@@ -254,7 +226,7 @@ namespace QL_CuaHangNongSan
                     return item.Index;
             return -1;
         }
-
+         
         public int hangHoaNayCoTrongGioChua(string tenHang)
         {
             int n = lstGioHang.Items.Count;
@@ -267,12 +239,13 @@ namespace QL_CuaHangNongSan
             }
             return 0;
         }
-
-        public string timTenNhanVien(string manv)
+         
+        public string timTenNhanVien()
         {
             try
             {
-                return link.comMandScalar("select TenNhanVien from NhanVien where MaNhanVien = '" + manv + "'");
+                DAL_Main dal = new DAL_Main();
+                return dal.getNameNV(frmLogin.nhanVien.MANV);
             }
             catch (Exception ex)
             {
@@ -280,22 +253,12 @@ namespace QL_CuaHangNongSan
             }
             return "";
         }
-
+         
         public string taoMaHoaDon()
         {
             try
             {
-                int dem = 0;
-                int count;
-                do
-                {
-                    string chuoiCount = "select COUNT(*) from HoaDon where MaHoaDon = 'HOADON_" + dem + "'";
-                    count = int.Parse(this.link.comMandScalar(chuoiCount));
-                    if (count == 0)//hóa đơn này chưa có trong datatable
-                        return "HOADON_" + dem;
-                    dem++;
-                } while (count != 0);
-                return "HOADON_" + (dem + 1);
+                return dalHoaDon.taoMaHoaDon();
             }
             catch (Exception ex)
             {
@@ -303,46 +266,27 @@ namespace QL_CuaHangNongSan
             }
             return "";
         }
-
+         
         private void frmHoaDon_Load(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    string comm = "select count(*) from HoaDon";
-            //    int soLuongHoaDon = (int)Int64.Parse(this.link.comMandScalar(comm));
-            //    txtMaHoaDon.Text = taoMaHoaDon();
-            //    txtNhanVien.Text = timTenNhanVien(this.manv);
-            //    loadComBoBoxKhachHang();
-            //    dateTimeInput1.Value = DateTime.Now;
-            //    txtGio.Text = dateTimeInput1.Value.ToShortTimeString();
-            //    /////////
-            //    lstGioHang.Items.Clear();
-            //    txtTienHang.Text = "0";
-            //    txtGiamGia.Text = "0";
-            //    txtPhanTramGiamGia.Text = "0";
-            //    txtTongGiaTriGioHang.Text = "0";
-            //    txtTienTraLai.Text = "0";
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-        }
-
-        public void loadComBoBoxKhachHang() 
         {
             try
             {
-                SqlDataReader dataReader = this.link.comManReader("select TenKhachHang from KhachHang", "TenKhachHang");
-
-                while (dataReader.Read())
-                {
-                    cbbKhachHang.Items.Add(dataReader["TenKhachHang"].ToString());
-                }
-
-                dataReader.Close();
-
-                this.link.closeConnection();
+                taoHoaDonMoi();
+                loadComBoBoxKhachHang();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+         
+        public void loadComBoBoxKhachHang()
+        {
+            try
+            {
+                cbbKhachHang.DataSource = dalHoaDon.getKhachHang();
+                cbbKhachHang.DisplayMember = "TENKH";
+                cbbKhachHang.ValueMember = "MAKH";
                 cbbKhachHang.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -350,54 +294,36 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        private void txtPhanTramGiamGia_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Char.IsDigit(e.KeyChar) == false && Char.IsControl(e.KeyChar) == false)
-                e.Handled = true;
-        }
-
+         
         private void cmbTienKhachDua_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //mỗi lần số tiền khách đưa thay đổi thì tính tiền lại
             tinhTien();
         }
-
+         
         private void txtPhanTramGiamGia_TextChanged(object sender, EventArgs e)
         {
-            //đảm bảo giá trị trị phần trm8 luôn nhỏ hơn 100
-            if (txtPhanTramGiamGia.Text.Length > 2)
-            {
-                string s = txtPhanTramGiamGia.Text;
-                txtPhanTramGiamGia.Text = s.Substring(0, 2);
-            }
             tinhTien();
         }
-
+         
         private void cmbTienKhachDua_TextChanged(object sender, EventArgs e)
         {
             tinhTien();
         }
-
+         
         private void cmbTienKhachDua_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) == false && Char.IsControl(e.KeyChar) == false)
                 e.Handled = true;
         }
-
+         
         private void btnXoaHangTrongGio_Click(object sender, EventArgs e)
         {
             try
             {
                 foreach (ListViewItem i in lstGioHang.SelectedItems)
                 {
-                    string tenHangHoa = i.SubItems[1].Text;
-                    int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                    int soLuongNew = soLuongHangHoaNayTrongKho + int.Parse(i.SubItems[3].Text);
-                    int kq = this.link.query("update KhoHang set SoluongTrongKho = " + soLuongNew + " where TenHangHoa = N'" + tenHangHoa + "'");
                     lstGioHang.Items.Remove(i);
                 }
-                taiGridViewHangHoa();
                 tinhTien();
             }
             catch (Exception ex)
@@ -405,7 +331,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         private void btnTangSoLuong_Click(object sender, EventArgs e)
         {
             try
@@ -414,16 +340,16 @@ namespace QL_CuaHangNongSan
                 if (lstGioHang.SelectedItems.Count != 0)
                 {
                     i = lstGioHang.Items.IndexOf(lstGioHang.SelectedItems[0]);
-                    string tenHangHoa = lstGioHang.Items[i].SubItems[1].Text;
-                    int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                    if (int.Parse(numericTang.Value.ToString()) >= soLuongHangHoaNayTrongKho)
-                        lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) + soLuongHangHoaNayTrongKho) + "";
-                    else
-                        lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) + int.Parse(numericTang.Value.ToString())) + "";
+                    //string tenHangHoa = lstGioHang.Items[i].SubItems[1].Text;
+                    //int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
+                    //if (int.Parse(numericTang.Value.ToString()) >= soLuongHangHoaNayTrongKho)
+                    //  lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) + soLuongHangHoaNayTrongKho) + "";
+                    //else
+                    lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) + int.Parse(numericTang.Value.ToString())) + "";
                     lstGioHang.Items[i].SubItems[4].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) * Double.Parse(lstGioHang.Items[i].SubItems[2].Text)) + "";
-                    capNhatKhoHangKhiThem(tenHangHoa, (int)Int64.Parse(numericTang.Value.ToString()));
+                    //capNhatKhoHangKhiThem(tenHangHoa, (int)Int64.Parse(numericTang.Value.ToString()));
                     numericTang.Value = 1;
-                    taiGridViewHangHoa();
+                    //taiGridViewHangHoa();
                     tinhTien();
                 }
             }
@@ -432,7 +358,7 @@ namespace QL_CuaHangNongSan
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
         private void btnGiamSoLuong_Click(object sender, EventArgs e)
         {
             try
@@ -441,25 +367,15 @@ namespace QL_CuaHangNongSan
                 if (lstGioHang.SelectedItems.Count != 0)
                 {
                     i = lstGioHang.Items.IndexOf(lstGioHang.SelectedItems[0]);
-                    string tenHangHoa = lstGioHang.SelectedItems[0].SubItems[1].Text;
-                    // nếu số lượng giảm của numberic lớn hơn hoặc băng số lượng hàng hóa đó thì xóa hàng đó ra khỏi giỏ
                     if (int.Parse(numericGiam.Value.ToString()) >= int.Parse(lstGioHang.Items[i].SubItems[3].Text))
                     {
-                        int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                        int soLuongNew = soLuongHangHoaNayTrongKho + int.Parse(lstGioHang.Items[i].SubItems[3].Text);
-                        int k = this.link.query("update KhoHang set SoluongTrongKho = " + soLuongNew + " where TenHangHoa = N'" + tenHangHoa + "'");
                         lstGioHang.Items.Remove(lstGioHang.Items[i]);
                     }
-                    //ngược lại thì giảm số lượng và tinh lại tiền hàng
                     else
                     {
-                        int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                        int soLuongNew = soLuongHangHoaNayTrongKho + int.Parse(numericGiam.Value.ToString());
-                        int kq = this.link.query("update KhoHang set SoluongTrongKho = " + soLuongNew + " where TenHangHoa = N'" + tenHangHoa + "'");
                         lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) - int.Parse(numericGiam.Value.ToString())) + "";
                         lstGioHang.Items[i].SubItems[4].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) * Double.Parse(lstGioHang.Items[i].SubItems[2].Text)) + "";
                     }
-                    taiGridViewHangHoa();
                     numericGiam.Value = 1;
                     tinhTien();
                 }
@@ -472,84 +388,99 @@ namespace QL_CuaHangNongSan
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            //chỉ thanh toán khi :
-            //  số tiền trả lại >= 0 
+            // chỉ thanh toán khi :
+            //  số tiền trả lại(số tiền khách đưa - tiền hàng) >= 0 
             //  trong giỏ có hàng
             //  tất cả các thông tin cần thiết đều có
-            //sau khi insert hóa đơn
+            //  sau khi insert hóa đơn
             // insert từng chi tiết hóa đơn 
+            // update điểm tích lũy
             try
             {
-                if (Double.Parse(txtTienTraLai.Text) >= 0)
+                if (lstGioHang.Items.Count > 0)
                 {
-                    if (lstGioHang.Items.Count > 0)
+
+                    if (cmbTienKhachDua.Text != "")
                     {
-                        if (txtPhanTramGiamGia.Text != "")
+                        if (Double.Parse(txtTienTraLai.Text) >= 0)
                         {
-                            if (cmbTienKhachDua.Text != "")
+                            try
                             {
-                                string maHoaDon = txtMaHoaDon.Text;
-                                string ngayLapHoaDon = dateTimeInput1.Value.ToShortDateString();
-                                string tenNhanVienLapHoaDon = txtNhanVien.Text;
-                                string maNVLapHoaDon = manv;
-                                string tenKhachHang = cbbKhachHang.Text;
-                                string maKhachHang = this.link.comMandScalar("select MaKhachHang from KhachHang where TenKhachHang = N'" + tenKhachHang + "'");
-                                string tienHang = txtTienHang.Text;
-                                string phanTramGiamGia = txtPhanTramGiamGia.Text;
-                                string giamGia = txtGiamGia.Text;
-                                string tongThanhTien = txtTongGiaTriGioHang.Text;
-                                string khachDua = cmbTienKhachDua.Text;
-                                string traLai = txtTienTraLai.Text;
-                                string command = "insert into HoaDon values('" + maHoaDon + "','" + ngayLapHoaDon + "',GETDATE(),N'" + tenNhanVienLapHoaDon + "','" + maNVLapHoaDon + "',N'" + tenKhachHang + "','" + maKhachHang + "'," + tienHang + "," + phanTramGiamGia + "," + giamGia + "," + tongThanhTien + "," + khachDua + "," + traLai + ")";
-                                if (this.link.query(command) != 0)
+                                dalHoaDon.thanhToanHoaDon(txtMaHoaDon.Text, frmLogin.nhanVien.MANV, cbbKhachHang.SelectedValue.ToString(), txtTongGiaTriGioHang.Text, txtDungDiemTichLuy.Text,txtTichDiem.Text ,convertGioHang(lstGioHang));
+                                rptHoaDonBanHang rpt = new rptHoaDonBanHang();
+                                contentReportHoaDon content = new contentReportHoaDon();
+                                content.mahd = txtMaHoaDon.Text;
+                                content.tenkh = cbbKhachHang.Text;
+                                content.tennv = txtNhanVien.Text;
+                                content.tongThanhTien = txtTongGiaTriGioHang.Text;
+                                content.tienHang = txtTienHang.Text;
+                                content.tichDiem = txtTichDiem.Text;
+                                content.dungDiem = txtDungDiemTichLuy.Value.ToString();
+                                content.khachDua = cmbTienKhachDua.Text;
+                                content.traLai = txtTienTraLai.Text;
+                                content.diemTichLuyHientai = (int.Parse(dalHoaDon.getTichLuy(cbbKhachHang.SelectedValue.ToString())) + (int.Parse(txtTichDiem.Text) - int.Parse(txtDungDiemTichLuy.Value.ToString()))).ToString();
+                                content.dataSource = convertGioHang(lstGioHang);
+                                string path = txtMaHoaDon.Text;
+                                rpt.ExporHoaDon(content, ref path, false);
+                                if (!string.IsNullOrEmpty(path) && MessageBox.Show("Bạn có muốn mở file không?", "Thông tin", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
                                 {
-                                    foreach (ListViewItem item in lstGioHang.Items)
-                                    {//insert các thành phần trong chi tiết hóa đơn
-                                        string tenHangHoa = item.SubItems[1].Text;
-                                        string maHangHoa = this.link.comMandScalar("select MaHangHoa from KhoHang where TenHangHoa = N'" + tenHangHoa + "'");
-                                        string giaBan = item.SubItems[2].Text;
-                                        string soLuong = item.SubItems[3].Text;
-                                        string thanhTien = item.SubItems[4].Text;
-                                        this.link.query("insert into ChiTietHoaDon values('" + maHoaDon + "','" + maHangHoa + "',N'" + tenHangHoa + "'," + giaBan + "," + soLuong + "," + thanhTien + ")");
-                                    }
-                                    frmReportHoaDon frmHD = new frmReportHoaDon(this.link, maHoaDon);
-                                    frmHD.ShowDialog();
+                                    System.Diagnostics.Process.Start(path);
                                 }
-                                else
-                                    MessageBox.Show("Thanh toán bị lỗi !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                taoHoaDonMoi();
+
                             }
-                            else
-                                MessageBox.Show("Khách chưa đưa tiền !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            catch (Exception ex)
+                            {
+
+                                MessageBox.Show(ex.ToString());
+                            }
+                            dsHangHoa = dalHoaDon.getHangHoa("");
+                            dataGridViewHangHoa.DataSource = dsHangHoa;
+                            taoHoaDonMoi();
                         }
                         else
-                            MessageBox.Show("Phần trăm giảm giá không được để trống !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                            MessageBox.Show("Khách chưa đưa đủ tiền !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                    }
+                    else
+                        MessageBox.Show("Khách chưa đưa tiền !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                    MessageBox.Show("Khách chưa đưa đủ tiền !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Hãy chọn hàng trước khi thanh toán !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
-
+         
+        private List<CHITIET_HD> convertGioHang(ListView lstGioHang) {
+            List<CHITIET_HD> res = new List<CHITIET_HD>();
+            foreach (ListViewItem item in lstGioHang.Items)
+            {
+                CHITIET_HD CTHD = new CHITIET_HD();
+                CTHD.MAHD = txtMaHoaDon.Text;
+                CTHD.MASP = item.SubItems[5].Text;
+                CTHD.TENHH = item.SubItems[1].Text.Trim();
+                CTHD.GIABAN = item.SubItems[2].Text.Trim();
+                CTHD.SL_MUA = int.Parse(item.SubItems[3].Text.Trim());
+                CTHD.THANHTIEN = item.SubItems[4].Text.Trim();
+                res.Add(CTHD);
+            }
+            return res;
+        }
+         
         public void taoHoaDonMoi()
         {
             try
             {
-                //Tạo hóa đơn mới
-                string comm = "select count(*) from HoaDon";
-                int soLuongHoaDon = (int)Int64.Parse(this.link.comMandScalar(comm));
                 txtMaHoaDon.Text = taoMaHoaDon();
-                txtNhanVien.Text = timTenNhanVien(this.manv);
+                txtNhanVien.Text = timTenNhanVien();
                 dateTimeInput1.Value = DateTime.Now;
+                txtGio.Text = dateTimeInput1.Value.ToShortTimeString();
                 lstGioHang.Items.Clear();
                 txtTienHang.Text = "0";
-                txtGiamGia.Text = "0";
-                txtPhanTramGiamGia.Text = "0";
+                txtDungDiemTichLuy.Text = "0";
+                txtTichDiem.Text = "0";
                 txtTongGiaTriGioHang.Text = "0";
                 txtTienTraLai.Text = "0";
             }
@@ -557,7 +488,21 @@ namespace QL_CuaHangNongSan
             {
                 MessageBox.Show(ex.ToString());
             }
-        }       
+        }
+         
+        private void cbbKhachHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!cbbKhachHang.SelectedValue.ToString().Equals("KH1"))
+            {
+                string dtl = dalHoaDon.getTichLuy(cbbKhachHang.SelectedValue.ToString());
+                if (dtl != "")
+                {
+                    lblMaxDiem.Text = "/ " + dtl;
+                    txtDungDiemTichLuy.Maximum = int.Parse(dtl);
+                    txtDungDiemTichLuy.Minimum = 0;
+                }
+            }
+        }
     }
 
 }

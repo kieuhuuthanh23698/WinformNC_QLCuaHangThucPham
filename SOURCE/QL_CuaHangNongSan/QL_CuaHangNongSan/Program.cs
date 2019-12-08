@@ -8,9 +8,17 @@ namespace QL_CuaHangNongSan
     {
         public static frmLogin frmLogin = null;
         public static frmKetNoi frmCauHinh = null;
+        public static frmDoiMatKhau frmDoiMatKhau = null;
         public static frmMain frmMain = null;
-        //sub form
+        //form business
         public static frmHoaDon frmHoaDon = null;
+        //form danh mục
+        public static frmDanhMucMatHang frmDanhMucMatHang = null;
+        public static frmDanhMucKhachHang frmDanhMucKhachHang = null;
+        public static frmDanhMucNhanVien frmDanhMucNhanVien = null;
+        //form thống kê
+        public static frmThongKeHoaDon frmThongKeHoaDon = null;
+
 
         /// <summary>
         /// The main entry point for the application.

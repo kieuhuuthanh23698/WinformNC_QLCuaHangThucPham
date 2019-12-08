@@ -55,6 +55,7 @@ namespace QL_CuaHangNongSan
             return this.sql.State;
         }
 
+
         public string comMandScalar(string chuoiCommand)
         {
             try

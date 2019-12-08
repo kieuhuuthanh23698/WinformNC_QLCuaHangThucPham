@@ -39,15 +39,17 @@
             this.numericTang = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtTichDiem = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.txtTienTraLai = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cmbTienKhachDua = new System.Windows.Forms.ComboBox();
             this.txtTongGiaTriGioHang = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtPhanTramGiamGia = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtGiamGia = new System.Windows.Forms.TextBox();
+            this.lblMaxDiem = new System.Windows.Forms.Label();
+            this.txtDungDiemTichLuy = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.txtTienHang = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -57,6 +59,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label6 = new System.Windows.Forms.Label();
             this.txtMaHoaDon = new System.Windows.Forms.TextBox();
@@ -68,6 +71,16 @@
             this.autoCompleteTextTenHangHoa = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewHangHoa = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.MaHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GIA_BAN_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonVi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeInput1 = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.numericThem = new System.Windows.Forms.NumericUpDown();
@@ -76,18 +89,11 @@
             this.btnThanhToan = new DevComponents.DotNetBar.ButtonX();
             this.txtGio = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.MaHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonVi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGiam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTang)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDungDiemTichLuy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHangHoa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericThem)).BeginInit();
@@ -200,21 +206,23 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.txtTichDiem);
+            this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.txtTienTraLai);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.cmbTienKhachDua);
             this.groupBox1.Controls.Add(this.txtTongGiaTriGioHang);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.txtPhanTramGiamGia);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.txtGiamGia);
+            this.groupBox1.Controls.Add(this.lblMaxDiem);
+            this.groupBox1.Controls.Add(this.txtDungDiemTichLuy);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtTienHang);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
-            this.groupBox1.Location = new System.Drawing.Point(844, 620);
+            this.groupBox1.Location = new System.Drawing.Point(847, 596);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -223,10 +231,51 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TÍNH TIỀN";
             // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(520, 66);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 18);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Điểm";
+            // 
+            // txtTichDiem
+            // 
+            this.txtTichDiem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTichDiem.Enabled = false;
+            this.txtTichDiem.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTichDiem.Location = new System.Drawing.Point(198, 58);
+            this.txtTichDiem.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTichDiem.Name = "txtTichDiem";
+            this.txtTichDiem.ReadOnly = true;
+            this.txtTichDiem.Size = new System.Drawing.Size(29, 26);
+            this.txtTichDiem.TabIndex = 27;
+            this.txtTichDiem.Text = "0";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(48, 66);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(90, 18);
+            this.label15.TabIndex = 26;
+            this.label15.Text = "TÍCH ĐIỂM";
+            // 
             // txtTienTraLai
             // 
             this.txtTienTraLai.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTienTraLai.Enabled = false;
             this.txtTienTraLai.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTienTraLai.Location = new System.Drawing.Point(198, 164);
             this.txtTienTraLai.Margin = new System.Windows.Forms.Padding(2);
@@ -276,6 +325,7 @@
             // 
             this.txtTongGiaTriGioHang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTongGiaTriGioHang.Enabled = false;
             this.txtTongGiaTriGioHang.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTongGiaTriGioHang.Location = new System.Drawing.Point(198, 128);
             this.txtTongGiaTriGioHang.Margin = new System.Windows.Forms.Padding(2);
@@ -291,7 +341,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(46, 130);
+            this.label12.Location = new System.Drawing.Point(48, 136);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(93, 18);
@@ -304,69 +354,60 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(48, 99);
+            this.label11.Location = new System.Drawing.Point(48, 100);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(98, 18);
             this.label11.TabIndex = 19;
             this.label11.Text = "KHÁCH ĐƯA";
             // 
-            // txtPhanTramGiamGia
+            // lblMaxDiem
             // 
-            this.txtPhanTramGiamGia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPhanTramGiamGia.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhanTramGiamGia.Location = new System.Drawing.Point(512, 58);
-            this.txtPhanTramGiamGia.Margin = new System.Windows.Forms.Padding(2);
-            this.txtPhanTramGiamGia.Name = "txtPhanTramGiamGia";
-            this.txtPhanTramGiamGia.Size = new System.Drawing.Size(64, 26);
-            this.txtPhanTramGiamGia.TabIndex = 16;
-            this.txtPhanTramGiamGia.Text = "0";
-            this.txtPhanTramGiamGia.TextChanged += new System.EventHandler(this.txtPhanTramGiamGia_TextChanged);
-            this.txtPhanTramGiamGia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPhanTramGiamGia_KeyPress);
+            this.lblMaxDiem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMaxDiem.AutoSize = true;
+            this.lblMaxDiem.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaxDiem.ForeColor = System.Drawing.Color.Black;
+            this.lblMaxDiem.Location = new System.Drawing.Point(471, 65);
+            this.lblMaxDiem.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMaxDiem.Name = "lblMaxDiem";
+            this.lblMaxDiem.Size = new System.Drawing.Size(0, 18);
+            this.lblMaxDiem.TabIndex = 15;
             // 
-            // label9
+            // txtDungDiemTichLuy
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(453, 67);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(26, 18);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "%";
-            // 
-            // txtGiamGia
-            // 
-            this.txtGiamGia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGiamGia.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGiamGia.Location = new System.Drawing.Point(198, 58);
-            this.txtGiamGia.Margin = new System.Windows.Forms.Padding(2);
-            this.txtGiamGia.Name = "txtGiamGia";
-            this.txtGiamGia.ReadOnly = true;
-            this.txtGiamGia.Size = new System.Drawing.Size(239, 26);
-            this.txtGiamGia.TabIndex = 14;
-            this.txtGiamGia.Text = "0";
+            this.txtDungDiemTichLuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDungDiemTichLuy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDungDiemTichLuy.Location = new System.Drawing.Point(367, 58);
+            this.txtDungDiemTichLuy.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDungDiemTichLuy.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.txtDungDiemTichLuy.Name = "txtDungDiemTichLuy";
+            this.txtDungDiemTichLuy.ReadOnly = true;
+            this.txtDungDiemTichLuy.Size = new System.Drawing.Size(89, 26);
+            this.txtDungDiemTichLuy.TabIndex = 14;
+            this.txtDungDiemTichLuy.ValueChanged += new System.EventHandler(this.txtPhanTramGiamGia_TextChanged);
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(48, 66);
+            this.label8.Location = new System.Drawing.Point(294, 61);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 18);
+            this.label8.Size = new System.Drawing.Size(38, 18);
             this.label8.TabIndex = 13;
-            this.label8.Text = "GIÃM GIÁ";
+            this.label8.Text = "ĐTL";
             // 
             // txtTienHang
             // 
             this.txtTienHang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTienHang.Enabled = false;
             this.txtTienHang.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTienHang.Location = new System.Drawing.Point(198, 24);
             this.txtTienHang.Margin = new System.Windows.Forms.Padding(2);
@@ -382,12 +423,12 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(48, 32);
+            this.label7.Location = new System.Drawing.Point(46, 32);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 18);
+            this.label7.Size = new System.Drawing.Size(106, 18);
             this.label7.TabIndex = 11;
-            this.label7.Text = "TIỀN HÀNG";
+            this.label7.Text = "TIỀN HÀNG : ";
             // 
             // lstGioHang
             // 
@@ -400,7 +441,8 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader8});
             this.lstGioHang.FullRowSelect = true;
             this.lstGioHang.GridLines = true;
             this.lstGioHang.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -409,7 +451,7 @@
             this.lstGioHang.Margin = new System.Windows.Forms.Padding(2);
             this.lstGioHang.Name = "lstGioHang";
             this.lstGioHang.ShowGroups = false;
-            this.lstGioHang.Size = new System.Drawing.Size(602, 372);
+            this.lstGioHang.Size = new System.Drawing.Size(602, 353);
             this.lstGioHang.TabIndex = 93;
             this.lstGioHang.UseCompatibleStateImageBehavior = false;
             this.lstGioHang.View = System.Windows.Forms.View.Details;
@@ -437,7 +479,12 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "THÀNH TIỀN";
-            this.columnHeader5.Width = 130;
+            this.columnHeader5.Width = 150;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "MASP";
+            this.columnHeader8.Width = 0;
             // 
             // columnHeader7
             // 
@@ -502,7 +549,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(919, 9);
+            this.label3.Location = new System.Drawing.Point(1024, 9);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(316, 38);
@@ -566,18 +613,20 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewHangHoa.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewHangHoa.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            this.dataGridViewHangHoa.BackgroundColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewHangHoa.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewHangHoa.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewHangHoa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewHangHoa.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaHangHoa,
-            this.Column4,
-            this.Column2,
-            this.Column3,
             this.TenHangHoa,
+            this.Column5,
             this.GiaBan,
+            this.GIA_BAN_1,
             this.DonVi,
-            this.Column1});
+            this.Column1,
+            this.Column3,
+            this.Column2,
+            this.Column4});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Azure;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -595,9 +644,99 @@
             this.dataGridViewHangHoa.RowHeadersVisible = false;
             this.dataGridViewHangHoa.RowTemplate.Height = 24;
             this.dataGridViewHangHoa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewHangHoa.Size = new System.Drawing.Size(576, 482);
+            this.dataGridViewHangHoa.Size = new System.Drawing.Size(576, 458);
             this.dataGridViewHangHoa.TabIndex = 102;
             this.dataGridViewHangHoa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHangHoa_CellDoubleClick);
+            // 
+            // MaHangHoa
+            // 
+            this.MaHangHoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.MaHangHoa.DataPropertyName = "MASP";
+            this.MaHangHoa.FillWeight = 55.27919F;
+            this.MaHangHoa.HeaderText = "Mã hàng hóa";
+            this.MaHangHoa.Name = "MaHangHoa";
+            this.MaHangHoa.ReadOnly = true;
+            this.MaHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // TenHangHoa
+            // 
+            this.TenHangHoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TenHangHoa.DataPropertyName = "TENSP";
+            this.TenHangHoa.FillWeight = 140F;
+            this.TenHangHoa.HeaderText = "Tên hàng hóa";
+            this.TenHangHoa.Name = "TenHangHoa";
+            this.TenHangHoa.ReadOnly = true;
+            this.TenHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column5.DataPropertyName = "GIA_BAN";
+            this.Column5.HeaderText = "Giá bán";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Visible = false;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GiaBan.DataPropertyName = "GIAMGIA";
+            this.GiaBan.FillWeight = 90F;
+            this.GiaBan.HeaderText = "Khuyến mãi         (-%)";
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.ReadOnly = true;
+            this.GiaBan.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // GIA_BAN_1
+            // 
+            this.GIA_BAN_1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GIA_BAN_1.DataPropertyName = "GIA_BAN_1";
+            this.GIA_BAN_1.FillWeight = 60F;
+            this.GIA_BAN_1.HeaderText = "Giá bán";
+            this.GIA_BAN_1.Name = "GIA_BAN_1";
+            this.GIA_BAN_1.ReadOnly = true;
+            // 
+            // DonVi
+            // 
+            this.DonVi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DonVi.DataPropertyName = "DVT";
+            this.DonVi.FillWeight = 36.85279F;
+            this.DonVi.HeaderText = "Đơn vị";
+            this.DonVi.Name = "DonVi";
+            this.DonVi.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.DataPropertyName = "SOLUONG";
+            this.Column1.FillWeight = 36.85279F;
+            this.Column1.HeaderText = "Số lượng";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "DANHMUC";
+            this.Column3.HeaderText = "Column3";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "MALOAI";
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Visible = false;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "DANH_MUC_SP";
+            this.Column4.HeaderText = "Column4";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Visible = false;
             // 
             // dateTimeInput1
             // 
@@ -694,6 +833,7 @@
             this.cbbKhachHang.Name = "cbbKhachHang";
             this.cbbKhachHang.Size = new System.Drawing.Size(489, 24);
             this.cbbKhachHang.TabIndex = 108;
+            this.cbbKhachHang.SelectedIndexChanged += new System.EventHandler(this.cbbKhachHang_SelectedIndexChanged);
             // 
             // txtNhanVien
             // 
@@ -714,7 +854,7 @@
             this.btnThanhToan.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnThanhToan.Image = global::QL_CuaHangNongSan.Properties.Resources.shop_cart_icon;
             this.btnThanhToan.ImageFixedSize = new System.Drawing.Size(128, 128);
-            this.btnThanhToan.Location = new System.Drawing.Point(651, 678);
+            this.btnThanhToan.Location = new System.Drawing.Point(651, 654);
             this.btnThanhToan.Margin = new System.Windows.Forms.Padding(2);
             this.btnThanhToan.Name = "btnThanhToan";
             this.btnThanhToan.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(2);
@@ -747,73 +887,6 @@
             this.label10.Size = new System.Drawing.Size(37, 17);
             this.label10.TabIndex = 110;
             this.label10.Text = "GIỜ";
-            // 
-            // MaHangHoa
-            // 
-            this.MaHangHoa.DataPropertyName = "MASP";
-            this.MaHangHoa.FillWeight = 75F;
-            this.MaHangHoa.HeaderText = "Mã hàng hóa";
-            this.MaHangHoa.Name = "MaHangHoa";
-            this.MaHangHoa.ReadOnly = true;
-            this.MaHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "DANH_MUC_SP";
-            this.Column4.HeaderText = "Column4";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "MALOAI";
-            this.Column2.HeaderText = "Column2";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Visible = false;
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "DANHMUC";
-            this.Column3.HeaderText = "Column3";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Visible = false;
-            // 
-            // TenHangHoa
-            // 
-            this.TenHangHoa.DataPropertyName = "TENSP";
-            this.TenHangHoa.FillWeight = 225F;
-            this.TenHangHoa.HeaderText = "Tên hàng hóa";
-            this.TenHangHoa.Name = "TenHangHoa";
-            this.TenHangHoa.ReadOnly = true;
-            this.TenHangHoa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // GiaBan
-            // 
-            this.GiaBan.DataPropertyName = "GIA_BAN";
-            this.GiaBan.FillWeight = 50F;
-            this.GiaBan.HeaderText = "GIá bán";
-            this.GiaBan.Name = "GiaBan";
-            this.GiaBan.ReadOnly = true;
-            this.GiaBan.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // DonVi
-            // 
-            this.DonVi.DataPropertyName = "DVT";
-            this.DonVi.FillWeight = 50F;
-            this.DonVi.HeaderText = "Đơn vị";
-            this.DonVi.Name = "DonVi";
-            this.DonVi.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "SOLUONG";
-            this.Column1.FillWeight = 50F;
-            this.Column1.HeaderText = "Số lượng";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             // 
             // frmHoaDon
             // 
@@ -856,6 +929,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericTang)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDungDiemTichLuy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHangHoa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericThem)).EndInit();
@@ -875,9 +949,8 @@
         private System.Windows.Forms.TextBox txtTongGiaTriGioHang;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtPhanTramGiamGia;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtGiamGia;
+        private System.Windows.Forms.Label lblMaxDiem;
+        private System.Windows.Forms.NumericUpDown txtDungDiemTichLuy;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtTienHang;
         private System.Windows.Forms.Label label7;
@@ -886,7 +959,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtMaHoaDon;
         private System.Windows.Forms.Label label5;
@@ -911,13 +983,20 @@
         private DevComponents.DotNetBar.ButtonX btnXoaHangTrongGio;
         private System.Windows.Forms.TextBox txtGio;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaHangHoa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenHangHoa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GIA_BAN_1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DonVi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.TextBox txtTichDiem;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label9;
     }
 }

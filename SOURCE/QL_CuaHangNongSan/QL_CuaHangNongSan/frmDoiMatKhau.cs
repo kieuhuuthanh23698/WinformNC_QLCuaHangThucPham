@@ -5,18 +5,16 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DAL;
 
 namespace QL_CuaHangNongSan
 {
     public partial class frmDoiMatKhau : Form
     {
-        string manv;
-        KetNoiDuLieu link;
+        DAL_Login dal = new DAL_Login();
 
-        public frmDoiMatKhau(string manv,KetNoiDuLieu link)
+        public frmDoiMatKhau()
         {
-            this.manv = manv;
-            this.link = link;
             InitializeComponent();
         }
 
@@ -28,13 +26,10 @@ namespace QL_CuaHangNongSan
                 {
                     if (txtMatKhauMoi.Text == txtMatKhauMoiNhapLai.Text)
                     {
-                        string chuoiQuery = "select Passwords from NhanVien where MaNhanVien = '" + this.manv + "'";
-                        string matKhauNV = this.link.comMandScalar(chuoiQuery).Trim();
-                        if (txtMatKhauCu.Text == matKhauNV)
+                        if (txtMatKhauCu.Text == frmLogin.nhanVien.MATKHAU)
                         {
-                            string chuoiUpdate = "update NhanVien set Passwords = '" + txtMatKhauMoi.Text + "' where MaNhanVien = '" + this.manv + "'";
-                            int kqUpdate = this.link.query(chuoiUpdate);
-                            if (kqUpdate != 0)
+                            bool kqUpdate = dal.changePassword(frmLogin.nhanVien.TENDN, txtMatKhauMoi.Text);
+                            if (kqUpdate)
                             {
                                 MessageBox.Show("Đổi mật khẩu thành công !");
                                 this.Close();
@@ -85,7 +80,7 @@ namespace QL_CuaHangNongSan
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Visible = false;
         }
 
     }

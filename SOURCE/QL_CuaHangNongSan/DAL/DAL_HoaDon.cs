@@ -15,6 +15,8 @@ namespace DAL
                 MASP = t.MASP,
                 TENSP = t.TENSP,
                 GIA_BAN = (double)t.GIA_BAN,
+                GIAMGIA = (double)t.GIAMGIA,
+                GIA_BAN_1 = (double)t.GIA_BAN_1,
                 DVT = t.DVT,
                 SOLUONG = t.SOLUONG
             });
@@ -40,8 +42,54 @@ namespace DAL
             return kq.ToList<HANGHOA>();
         }
 
-        public int getSoLuongHoaDon() {
-           
+        private bool isExistHoaDon(string maHD) {
+            return context.HOA_DONs.Count(t => t.MAHD.Equals(maHD)) > 0 ? true : false;
+        }
+
+        public string taoMaHoaDon() {
+            string maHD = "";
+            int count = 1;
+            do
+            {
+                if (!isExistHoaDon("HD" + count))
+                {
+                    maHD = "HD" + count;
+                    break;
+                }
+                count++;
+            } while (count != 0);
+            return maHD;
+        }
+
+        public List<KHACH_HANG> getKhachHang() {
+            return context.KHACH_HANGs.ToList();
+        }
+
+        public string getTichLuy(string MAKH) {
+            if (context.KHACH_HANGs.Where(t => t.MAKH == MAKH).ToList().Count > 0)
+                return (context.KHACH_HANGs.Where(t => t.MAKH == MAKH).ToList()[0].TICHLUY).ToString();
+            else
+                return "";
+        }
+
+        public void thanhToanHoaDon(string maHD, string maNV, string maKH, string tongTien, string dungDiemTichLuy, string tichDiem, List<CHITIET_HD> gioHang) {
+            HOA_DON newHD = new HOA_DON();
+            newHD.MAHD = maHD;
+            newHD.MANV = maNV;
+            newHD.MAKH = maKH;
+            newHD.TONGTIEN = Double.Parse(tongTien);
+            newHD.NGAYLAP = DateTime.Today;
+            newHD.GIAMGIA = Double.Parse(dungDiemTichLuy);
+            context.HOA_DONs.InsertOnSubmit(newHD);
+            context.SubmitChanges();
+            context.CHITIET_HDs.InsertAllOnSubmit(gioHang);
+            foreach (var item in gioHang)
+            {
+                context.HANGHOAs.Where(t => t.MASP == item.MASP).FirstOrDefault().SOLUONG -= item.SL_MUA;
+            }
+            context.SubmitChanges();
+            context.KHACH_HANGs.Where(t => t.MAKH == maKH).FirstOrDefault().TICHLUY += (int.Parse(tichDiem) - int.Parse(dungDiemTichLuy));
+
         }
     }
 }

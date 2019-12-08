@@ -1989,4 +1989,4 @@ WHERE        (MaNhomNguoiDung = @MaNhomNguoiDung) AND (MaManHinh = @MaManHinh)</
       <msdata:Relationship name="FK_PHAN_QUYEN_MAN_HINH1" msdata:parent="QL_GetPhanQuyen" msdata:child="PHAN_QUYEN" msdata:parentkey="MaManHinh" msdata:childkey="MaManHinh" msprop:Generator_UserChildTable="PHAN_QUYEN" msprop:Generator_ChildPropName="GetPHAN_QUYENRows" msprop:Generator_UserRelationName="FK_PHAN_QUYEN_MAN_HINH1" msprop:Generator_RelationVarName="relationFK_PHAN_QUYEN_MAN_HINH1" msprop:Generator_UserParentTable="QL_GetPhanQuyen" msprop:Generator_ParentPropName="QL_GetPhanQuyenRow" />
     </xs:appinfo>
   </xs:annotation>
-</xs:schema>
+</xs:schema> 
