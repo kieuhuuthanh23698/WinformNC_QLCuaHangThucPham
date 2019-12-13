@@ -10,7 +10,7 @@ namespace DAL
         SeasonalFoodsDataContext context = Context.getInstance();
 
         public List<HANGHOA> getHangHoa(string loaiHang) {
-            var lstHangHoa = context.getHangHoa_Loai(loaiHang);
+            var lstHangHoa = context.getHangHoa_Loai(maLoai(loaiHang));
             var kq = lstHangHoa.ToList().ConvertAll(t => new HANGHOA {
                 MASP = t.MASP,
                 TENSP = t.TENSP,
@@ -23,9 +23,15 @@ namespace DAL
             return kq.ToList<HANGHOA>();
         }
 
+        public string maLoai(string tenLoai) {
+            if(tenLoai != "")
+                return context.DANH_MUC_SPs.Where(t => t.TENLOAI.Trim().Equals(tenLoai.Trim())).First().MALOAI;
+            return "";
+        }
+
         public List<DANH_MUC_SP> getDanhMuc()
         {
-            return context.DANH_MUC_SPs.ToList();
+            return context.DANH_MUC_SPs.Where(t => t.HIDDEN == 1).ToList();
         }
 
         public List<HANGHOA> searchHangHoa(string valueSearch)

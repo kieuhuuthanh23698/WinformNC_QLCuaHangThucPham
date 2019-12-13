@@ -13,8 +13,6 @@ namespace QL_CuaHangNongSan
 {
     public partial class frmHoaDon : Form
     {
-        KetNoiDuLieu link;
-        string manv;
         DAL_HoaDon dalHoaDon = new DAL_HoaDon();
         List<DANH_MUC_SP> danhMucHangHoa;
         List<HANGHOA> dsHangHoa;
@@ -32,6 +30,11 @@ namespace QL_CuaHangNongSan
             im.Images.Add(QL_CuaHangNongSan.Properties.Resources.father_node);
             im.Images.Add(QL_CuaHangNongSan.Properties.Resources.child_node);
             treeView1.ImageList = im;
+        }
+
+        public void reFreshData() {
+            dsHangHoa = dalHoaDon.getHangHoa("");
+            danhMucHangHoa = dalHoaDon.getDanhMuc();
         }
          
         public void taiGridViewHangHoa()
@@ -51,6 +54,7 @@ namespace QL_CuaHangNongSan
             try
             {
                 int i = 0;
+                treeView1.Nodes[0].Nodes.Clear();
                 foreach (var item in danhMucHangHoa)
                 {
                     treeView1.Nodes[0].Nodes.Add(item.TENLOAI);
@@ -70,12 +74,12 @@ namespace QL_CuaHangNongSan
             {
                 foreach (var item in dsHangHoa)
                 {
-                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.TENSP);
-                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.MASP);
+                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.TENSP.Trim());
+                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.MASP.Trim());
                 }
                 foreach (var item in danhMucHangHoa)
                 {
-                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.MALOAI);
+                    autoCompleteTextTenHangHoa.AutoCompleteCustomSource.Add(item.MALOAI.Trim());
                 }
             }
             catch (Exception ex)
@@ -89,11 +93,14 @@ namespace QL_CuaHangNongSan
             try
             {
                 if (autoCompleteTextTenHangHoa.Text.Trim().Equals("") == true)
-                    taiGridViewHangHoa();
+                {
+                    reFreshData();
+                }
                 else
                 {
-                    dataGridViewHangHoa.DataSource = dalHoaDon.getHangHoa(autoCompleteTextTenHangHoa.Text.Trim());
+                    dsHangHoa = dalHoaDon.getHangHoa(autoCompleteTextTenHangHoa.Text.Trim());
                 }
+                taiGridViewHangHoa();
             }
             catch (Exception ex)
             {
@@ -106,9 +113,14 @@ namespace QL_CuaHangNongSan
             try
             {
                 if (e.Node.Text.Equals("Tất cả loại hàng hóa") == true)
-                    taiGridViewHangHoa();
+                {
+                    reFreshData();
+                }
                 else
-                    dataGridViewHangHoa.DataSource = dalHoaDon.getHangHoa(e.Node.Text);
+                {
+                    dsHangHoa = dalHoaDon.getHangHoa(e.Node.Text.Trim());
+                }
+                taiGridViewHangHoa();
             }
             catch (Exception ex)
             {
@@ -340,16 +352,8 @@ namespace QL_CuaHangNongSan
                 if (lstGioHang.SelectedItems.Count != 0)
                 {
                     i = lstGioHang.Items.IndexOf(lstGioHang.SelectedItems[0]);
-                    //string tenHangHoa = lstGioHang.Items[i].SubItems[1].Text;
-                    //int soLuongHangHoaNayTrongKho = int.Parse(this.link.comMandScalar("select SoluongTrongKho from KhoHang where TenHangHoa = N'" + tenHangHoa + "'"));
-                    //if (int.Parse(numericTang.Value.ToString()) >= soLuongHangHoaNayTrongKho)
-                    //  lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) + soLuongHangHoaNayTrongKho) + "";
-                    //else
                     lstGioHang.Items[i].SubItems[3].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) + int.Parse(numericTang.Value.ToString())) + "";
                     lstGioHang.Items[i].SubItems[4].Text = (int.Parse(lstGioHang.Items[i].SubItems[3].Text) * Double.Parse(lstGioHang.Items[i].SubItems[2].Text)) + "";
-                    //capNhatKhoHangKhiThem(tenHangHoa, (int)Int64.Parse(numericTang.Value.ToString()));
-                    numericTang.Value = 1;
-                    //taiGridViewHangHoa();
                     tinhTien();
                 }
             }
@@ -473,6 +477,7 @@ namespace QL_CuaHangNongSan
         {
             try
             {
+                taiGridViewHangHoa();
                 txtMaHoaDon.Text = taoMaHoaDon();
                 txtNhanVien.Text = timTenNhanVien();
                 dateTimeInput1.Value = DateTime.Now;

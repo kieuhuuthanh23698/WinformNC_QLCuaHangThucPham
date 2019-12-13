@@ -36,6 +36,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -44,11 +46,18 @@
   <ItemGroup>
     <Compile Include="CHITIET_HD.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="DALKhuyenMai.cs" />
     <Compile Include="DAL_CauHinh.cs" />
+    <Compile Include="DAL_HangHoa.cs" />
     <Compile Include="DAL_HoaDon.cs" />
+    <Compile Include="DAL_KhachHang.cs" />
     <Compile Include="DAL_Login.cs" />
     <Compile Include="DAL_Main.cs" />
+    <Compile Include="DAL_NhanVien.cs" />
+    <Compile Include="DAL_PhanQuyen.cs" />
+    <Compile Include="DAL_ThongKe.cs" />
     <Compile Include="HANGHOA.cs" />
+    <Compile Include="NHANVIEN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

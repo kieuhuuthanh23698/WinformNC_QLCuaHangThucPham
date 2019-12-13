@@ -26,7 +26,7 @@ namespace QL_CuaHangNongSan
                 {
                     if (txtMatKhauMoi.Text == txtMatKhauMoiNhapLai.Text)
                     {
-                        if (txtMatKhauCu.Text == frmLogin.nhanVien.MATKHAU)
+                        if (!txtMatKhauCu.Text.Equals(frmLogin.nhanVien.MATKHAU))
                         {
                             bool kqUpdate = dal.changePassword(frmLogin.nhanVien.TENDN, txtMatKhauMoi.Text);
                             if (kqUpdate)

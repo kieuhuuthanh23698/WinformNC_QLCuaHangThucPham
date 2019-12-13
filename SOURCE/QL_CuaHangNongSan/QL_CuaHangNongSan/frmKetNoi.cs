@@ -43,7 +43,9 @@ namespace QL_CuaHangNongSan
             {
                this.errorProvider1.Clear();
                dalCauHinh.saveConfig(cbbDataSource.Text, cbbIni.Text, txtID.Text, txtPass.Text);
-               if (dalLogin.checkConfig() == 0)
+                Properties.Settings.Default["SeasonalFoodsConnectionString"] = @"Data Source=" + cbbDataSource.Text + ";Initial Catalog=" + cbbIni.Text + "; User ID=" + txtID.Text + ";password=" + txtPass.Text;
+                Properties.Settings.Default.Save();
+                if (dalLogin.checkConfig() == 0)
                 {
                     frmLogin frmlogin = new frmLogin();
                     this.Hide();

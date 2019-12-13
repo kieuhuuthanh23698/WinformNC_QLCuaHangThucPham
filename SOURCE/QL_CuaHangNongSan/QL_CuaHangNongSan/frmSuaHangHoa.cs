@@ -6,30 +6,26 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using DAL;
 
 namespace QL_CuaHangNongSan
 {
     public partial class frmSuaHangHoa : Form
     {
-        DataGridViewRow row;
-        KetNoiDuLieu kn;
-        String ten, giaban, donvi;
+        DAL_HoaDon dal = new DAL_HoaDon();
+        DAL_HangHoa dal1 = new DAL_HangHoa();
+        string mahh;
 
-        public frmSuaHangHoa(KetNoiDuLieu kn, DataGridViewRow row)
+        public frmSuaHangHoa(string mahh)
         {
             try
             {
-                this.row = row;
-                this.kn = kn;
                 InitializeComponent();
-
-                txtTen.Text = row.Cells["TenHangHoa"].Value.ToString();
-                txtGiaban.Text = row.Cells["GiaBan"].Value.ToString();
-                txtDonvi.Text = row.Cells["DonVi"].Value.ToString();
-
-                ten = txtTen.Text;
-                giaban = txtGiaban.Text;
-                donvi = txtDonvi.Text;
+                this.mahh = mahh;
+                HANGHOA sp = dal.getHangHoa(mahh)[0];
+                txtTen.Text = sp.TENSP;
+                txtDonvi.Text = sp.DVT;
+                txtGiaban.Text = sp.GIA_BAN.ToString();
             }
             catch (Exception ex)
             {
@@ -39,38 +35,11 @@ namespace QL_CuaHangNongSan
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if ((ten != txtTen.Text || giaban != txtGiaban.Text || donvi != txtDonvi.Text) && txtTen.Text != "" && txtGiaban.Text != "" && txtDonvi.Text != "")
+            if (txtTen.Text != "" && txtGiaban.Text != "" && txtDonvi.Text != "")
             {
-                try
-                {
-                    //sửa đổi
-                    String maHang = this.row.Cells["MaHangHoa"].Value.ToString();
-
-                    SqlConnection sql = this.kn.getSql();
-                    string queryKhohang = "select * from KhoHang";
-                    SqlDataAdapter daKhoHang = new SqlDataAdapter(queryKhohang, sql);
-                    DataTable tbKhoHang = new DataTable("KhoHang");
-                    daKhoHang.Fill(tbKhoHang);
-
-                    int n = tbKhoHang.Rows.Count;
-                    for (int i = 0; i < n; i++)
-                    {
-                        if (maHang.Trim() == tbKhoHang.Rows[i]["MaHangHoa"].ToString().Trim())
-                        {
-                            tbKhoHang.Rows[i]["TenHangHoa"] = txtTen.Text;
-                            tbKhoHang.Rows[i]["GiaBan"] = txtGiaban.Text;
-                            tbKhoHang.Rows[i]["DonVi"] = txtDonvi.Text;
-
-                            SqlCommandBuilder scb = new SqlCommandBuilder(daKhoHang);
-                            scb.GetUpdateCommand();
-                            daKhoHang.Update(tbKhoHang);
-                            MessageBox.Show("Sửa thông tin hàng hóa thành công !", "SỬA THÔNG TIN HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
-                            return;
-                        }
-                    }
-                    MessageBox.Show("Sửa thông tin hàng hóa thất bại !", "SỬA THÔNG TIN HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                try {
+                    string res = dal1.updateHH(mahh, txtTen.Text, txtDonvi.Text, txtGiaban.Text);
+                    MessageBox.Show(res, "SỬA THÔNG TIN HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                 }
                 catch (Exception ex)
                 {

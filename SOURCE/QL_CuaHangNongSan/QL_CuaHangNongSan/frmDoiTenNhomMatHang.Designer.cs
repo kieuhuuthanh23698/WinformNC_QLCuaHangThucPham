@@ -146,6 +146,7 @@
             // 
             // frmDoiTenNhomMatHang
             // 
+            this.AcceptButton = this.btnLuu;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::QL_CuaHangNongSan.Properties.Resources.bg_1;

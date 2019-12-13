@@ -6,24 +6,26 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DAL;
 
 namespace QL_CuaHangNongSan
 {
     public partial class  frmDoiTenNhomMatHang : Form
     {
-        KetNoiDuLieu link;
+        DAL_HangHoa dal = new DAL_HangHoa();
         string ten;
+        public static string tenConfig;
 
-        public frmDoiTenNhomMatHang(string ten,KetNoiDuLieu link)
+        public frmDoiTenNhomMatHang(string ten)
         {
-            this.link = link;
-            this.ten = ten;
             InitializeComponent();
+            this.ten = ten;
             txtTenNhomMatHang.Text = ten;
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -33,34 +35,13 @@ namespace QL_CuaHangNongSan
             {
                 if (txtTenNhomMatHang.Text.Equals(ten) == false)
                 {
-                    //load bảng Loại hàng hóa từ csdl lên bộ nhớ
-                    SqlConnection sql = this.link.getSql();
-                    string queryLoaiHangHoa = "select * from LoaiHangHoa";
-                    SqlDataAdapter dataAdapter_LoaiHangHoa = new SqlDataAdapter(queryLoaiHangHoa, sql);
-                    DataSet dataSet_LoaiHangHoa = new DataSet();
-                    dataAdapter_LoaiHangHoa.Fill(dataSet_LoaiHangHoa, "LoaiHangHoa");
-                    DataTable dataTable_LoaiMatHang = dataSet_LoaiHangHoa.Tables["LoaiHangHoa"];
-
-                    //thực hiện sửa đổi
-                    int n = dataTable_LoaiMatHang.Rows.Count;
-                    for (int i = 0; i < n; i++)
-                    {
-                        if (dataTable_LoaiMatHang.Rows[i]["TenLoaiHangHoa"].ToString().Trim() == ten)
-                        {
-                            dataTable_LoaiMatHang.Rows[i]["TenLoaiHangHoa"] = txtTenNhomMatHang.Text;
-                            break;
-                        }
-                    }
-
-                    //update bảng Loại hàng hóa từ bộ nhớ xuống csdl
-                    SqlCommandBuilder commandBuilderLoaiHangHoa = new SqlCommandBuilder(dataAdapter_LoaiHangHoa);
-                    commandBuilderLoaiHangHoa.GetUpdateCommand();//chú ý : khi update thì phải getUpdateCommand()
-                    dataAdapter_LoaiHangHoa.Update(dataTable_LoaiMatHang);
+                    dal.doiTenLoaiHangHoa(ten, txtTenNhomMatHang.Text);
                     MessageBox.Show("Sửa thành công !", "Sửa tên nhóm mặt hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tenConfig = txtTenNhomMatHang.Text;
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
-                else
-                    this.Close();
+                this.Close();
             }
             catch (Exception ex)
             {

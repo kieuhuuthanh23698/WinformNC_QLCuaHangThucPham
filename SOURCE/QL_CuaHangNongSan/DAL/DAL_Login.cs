@@ -39,7 +39,7 @@ namespace DAL
                 return LoginResult.Invalid;
             else
             {
-                if(result.HOATDONG == "False")
+                if(result.HOATDONG == 0)
                     return LoginResult.Disabled; 
                 return LoginResult.Success;
             }

@@ -6,17 +6,21 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DAL;
 
 namespace QL_CuaHangNongSan
 {
     public partial class frmDanhMucNhanVien : Form
     {
+        DAL_NhanVien dal = new DAL_NhanVien();
+        List<NHANVIEN> list;
 
         public frmDanhMucNhanVien()
         {
             InitializeComponent();
-            //TaiNV();
-            //taiAutoCompleteText();
+            list = dal.loadNV();
+            TaiNV();
+            taiAutoCompleteText();
             //if (kTraAdmin("",manv) == false)
             //{
             //    txtMatkhau.PasswordChar = '*';
@@ -24,359 +28,273 @@ namespace QL_CuaHangNongSan
             //    txtUsers.Enabled = false;
             //    txtMatkhau.Enabled = false;
             //}
-            //btnHuyThem.Hide();
+            btnHuyThem.Hide();
         }
 
         public void TaiNV()
         {
-            //try
-            //{
-            //    dataGridView_Nhanvien.DataSource = this.kn.comManTable("select MaNhanVien as N'Mã nhân viên',TenNhanVien as N'Tên nhân viên' from NhanVien", "Nhan Vien").Tables["Nhan Vien"];
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
+            try
+            {
+                dataGridView_Nhanvien.DataSource = list;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            
-            //txtMa.Focus();
-            //btnHuyThem.Show();
-            //btnLuu.Enabled = true;
-            //btnThem.Enabled = false;
-            //btnSua.Enabled = false;
-            //btnXoa.Enabled = false;
-            //dataGridView_Nhanvien.Enabled = false;
+            txtMa.Focus();
+            btnHuyThem.Show();
+            btnLuu.Enabled = true;
+            btnThem.Enabled = false;
+            btnSua.Enabled = false;
+            btnXoa.Enabled = false;
+            dataGridView_Nhanvien.Enabled = false;
 
-            ////reset các text box thông tin
-            //txtMa.Text = taoMaNhanVien();
-            //txtTen.Text = "";
-            //dateTimeNgaySinh.Text = "";
-            //cboxGtinh.Text = "";
-            //cboxTuoi.Text = "";
-            //txtMail.Text = "";
-            //txtDiachi.Text = "";
-            //txtLuong.Text = "";
-            //cbbCap.Text = "";
-            //txtUsers.Text = taoMaNhanVien();
-            //txtMatkhau.Text = "";
-
-            //dateTimeNgaySinh.Value = DateTime.Now;
-            //cboxGtinh.SelectedIndex = 0;
-            //cbbCap.SelectedIndex = 0;
-            //cboxTuoi.SelectedIndex = 0;
+            //reset các text box thông tin
+            clearControl();
+            txtMa.Text = dal.taoMaNV();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (dataGridView_Nhanvien.SelectedRows.Count != 0)
-            //    {
-            //        if (txtTen.Text != "" && cboxGtinh.Text != "" && dateTimeNgaySinh.Text != "" && cboxTuoi.Text != "" && KTMail(txtMail.Text) == true && txtDiachi.Text != "" && txtLuong.Text != "" && cbbCap.SelectedItem.ToString() != "" && txtUsers.Text != "" && txtMatkhau.Text != "")
-            //        {
-            //            string chuoinv = "update NhanVien set TenNhanVien=N'" + txtTen.Text + "',NgaySinh='" + dateTimeNgaySinh.Text + "',GioiTinh=N'" + cboxGtinh.Text + "',Luong=" + txtLuong.Text + ",Email='" +
-            //                txtMail.Text + "',DiaChi=N'" + txtDiachi.Text + "',Tuoi=" + cboxTuoi.Text + ",UserName='" + txtUsers.Text + "',Passwords='" + txtMatkhau.Text + "',CapNguoiDung='" + cbbCap.SelectedItem.ToString() + "' where MaNhanVien='" + txtMa.Text + "'";
-            //            int kq = this.kn.query(chuoinv);
-            //            if (kq != 0)
-            //            {
-            //                MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "CẬP NHẬT THÔNG TIN NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Cập nhật thông tin thất bại!", "CẬP NHẬT THÔNG TIN NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //        }
-            //        else
-            //            MessageBox.Show("Bạn chọn nhân viên trong danh sách và sửa lại thì mới cập nhật thông tin được !", "CẬP NHẬT THÔNG TIN NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-        }
-
-        private bool KtraKhoaChinh(string s)
-        {
-            //try
-            //{
-            //    bool kq = true;
-            //    string i = this.kn.comMandScalar("select MaNhanVien from NhanVien where MaNhanVien='" + s + "'").Trim();
-            //    if (i == "")
-            //    {
-            //        return false;
-            //    }
-            //    return kq;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-            return false;
+            try
+            {
+                if (dataGridView_Nhanvien.SelectedRows.Count != 0)
+                {
+                    if (verifyData())
+                    {
+                        
+                        dal.capNhatNhanVien(getData());
+                        list = dal.loadNV();
+                        TaiNV();
+                        MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "CẬP NHẬT THÔNG TIN NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thông tin thất bại!", "CẬP NHẬT THÔNG TIN NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }                   }
+                    else
+                        MessageBox.Show("Bạn chọn nhân viên trong danh sách và sửa lại thì mới cập nhật thông tin được !", "CẬP NHẬT THÔNG TIN NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private bool KTMail(string s)
         {
-            //char[] mangchuoi = s.ToCharArray();
-            //for (int i = 0; i < s.Length; i++)
-            //    if (mangchuoi[i] == '@')
-            //        return true;
+            char[] mangchuoi = s.ToCharArray();
+            for (int i = 0; i < s.Length; i++)
+                if (mangchuoi[i] == '@')
+                    return true;
             return false;
         }
 
         private void frmDanhMucNhanVien_Load(object sender, EventArgs e)
         {
-            //string[] tuoi = { "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "34", "35", "36", "37", "38", "39","40" };
-            //foreach (string s in tuoi)
-            //{
-            //    cboxTuoi.Items.Add(s);
-            //}
-            //string[] gtinh = { "Nam", "Nữ" };
-            //foreach (string s in gtinh)
-            //{
-            //    cboxGtinh.Items.Add(s);
-            //}
+            string[] active = { "ACTIVE", "DEACTIVE"};
+            foreach (string s in active)
+            {
+                cbbActive.Items.Add(s);
+            }
+            string[] gtinh = { "Nam", "Nữ" };
+            foreach (string s in gtinh)
+            {
+                cboxGtinh.Items.Add(s);
+            }
         }
 
         private void dataGridView_Nhanvien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //try
-            //{
-            //    if (dataGridView_Nhanvien.SelectedRows.Count != 0)
-            //    {
-            //        //hiển thị thông tin của nhân viên lên textbox
-            //        SqlDataReader dr = this.kn.comManReader("select * from NhanVien where MaNhanVien = N'" + dataGridView_Nhanvien.CurrentRow.Cells[0].Value.ToString() + "'", "NhanVien");
-            //        dr.Read();
-            //        txtMa.Text = dr["MaNhanVien"].ToString().Trim();
-            //        txtTen.Text = dr["TenNhanVien"].ToString().Trim();
-            //        dateTimeNgaySinh.Text = dr["NgaySinh"].ToString().Trim();
-            //        cboxGtinh.Text = dr["GioiTinh"].ToString().Trim();
-            //        cboxTuoi.Text = dr["Tuoi"].ToString().Trim();
-            //        txtMail.Text = dr["Email"].ToString().Trim();
-            //        txtDiachi.Text = dr["DiaChi"].ToString().Trim();
-            //        txtLuong.Text = dr["Luong"].ToString().Trim();
-            //        cbbCap.Text = dr["CapNguoiDung"].ToString().Trim();
-            //        txtUsers.Text = dr["UserName"].ToString().Trim();
-            //        txtMatkhau.Text = dr["PassWords"].ToString().Trim();
-            //        dr.Close();
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-        }
-
-        public bool kTraAdmin(string tenNhanVien, string maNhanVien)
-        {
-            //try
-            //{
-            //    string chuoiQuery = "select CapNguoiDung from NhanVien where TenNhanVien = N'" + tenNhanVien + "' or MaNhanVien = '" + maNhanVien + "'";
-            //    string capNguoiDung = this.kn.comMandScalar(chuoiQuery).Trim();
-            //    if (capNguoiDung == "Admin")
-            //        return true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-            return false;
+            try
+            {
+                if (dataGridView_Nhanvien.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow row = dataGridView_Nhanvien.SelectedRows[0];
+                    string tennv = row.Cells["TENNV"].Value.ToString().Trim();
+                    NHANVIEN a = dal.searchNV(tennv)[0];
+                    txtMa.Text = a.MANV;
+                    txtTen.Text = a.TENNV;
+                    dateTimeNgaySinh.Value = (DateTime)a.NGAY_SINH;
+                    cboxGtinh.SelectedIndex = a.PHAI_NV;
+                    txtMail.Text = a.EMAIL;
+                    txtDiachi.Text = a.DIACHI_NV;
+                    txtLuong.Text = a.LUONG + "";
+                    txtChucVu.Text = a.CHUCVU;
+                    txtUsers.Text = a.TENDN;
+                    txtMatkhau.Text = a.MATKHAU;
+                    cbbActive.SelectedIndex = a.HOATDONG == "ACTIVE" ? 0 : 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    int r = dataGridView_Nhanvien.CurrentCell.RowIndex;
+            try
+            {
+                //int r = dataGridView_Nhanvien.CurrentCell.RowIndex;
 
-            //    string maNV = dataGridView_Nhanvien.Rows[r].Cells[0].Value.ToString(); 
-            //    if (dataGridView_Nhanvien.SelectedRows.Count!=0)
-            //    {
-            //        //lưu ý : ko thể xóa tài khoảng đang đăng nhập, ko thể xóa tài khoảng admin
-            //        if (kTraAdmin(maNV, "") == false)
-            //        {
-            //            if (this.manv != txtMa.Text)
-            //            {
-            //                //xóa các bảng liên quan đến nhân viên này
-            //                //string xoathuchi = "delete ThuChi from ThuChi,HoaDon,NhanVien where ThuChi.MaNhanVienThuChi=HoaDon.MaNVLapHoaDon and HoaDon.MaNVLapHoaDon=NhanVien.MaNhanVien and MaNhanVien='" + txtMa.Text + "'";
-            //                string xoaChiTietHoaDon = "delete ChiTietHoaDon from ChiTietHoaDon, HoaDon , NhanVien where ChiTietHoaDon.MaHoaDon = HoaDon.MaHoaDon and NhanVien.MaNhanVien = HoaDon.MaNVLapHoaDon and MaNhanVien = '" + txtMa.Text + "'";
-            //                string xoaHoaDon = "delete HoaDon from HoaDon, NhanVien where HoaDon.MaNVLapHoaDon = NhanVien.MaNhanVien and NhanVien.MaNhanVien = '" + txtMa.Text + "'";
-            //                string xoaNhanVien = "delete NhanVien where MaNhanVien = '" + txtMa.Text + "'";
-            //                //int kq = this.kn.query(xoathuchi);
-            //                int kq = this.kn.query(xoaChiTietHoaDon);
-            //                kq = this.kn.query(xoaHoaDon);
-            //                kq = this.kn.query(xoaNhanVien);
-            //                if (kq != 0)
-            //                {
-            //                    MessageBox.Show("Đã xóa nhân viên","XÓA NHÂN VIÊN",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            //                    TaiNV();
-            //                    //reset lại các text box vì nó vẫn còn chứa các thông tin của nhân viên vừa xóa
-            //                    txtMa.Text = "";
-            //                    txtTen.Text = "";
-            //                    txtMail.Text = "";
-            //                    txtDiachi.Text = "";
-            //                    txtLuong.Text = "";
-            //                    txtUsers.Text = "";
-            //                    txtMatkhau.Text = "";
-            //                }
-            //            }
-            //            else
-            //                MessageBox.Show("Bạn đăng nhập bằng tài khoảng này ! Không thể xóa được !","XÓA NHÂN VIÊN",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-            //        }
-            //        else
-            //            MessageBox.Show("Đây là Admin ! Không thể xóa !", "XÓA NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString(), "EXCEPTION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+                //string maNV = dataGridView_Nhanvien.Rows[r].Cells[0].Value.ToString();
+                if (dataGridView_Nhanvien.SelectedRows.Count > 0)
+                {
+                    if (frmLogin.nhanVien.MANV != txtMa.Text)
+                    {
+                        dal.deleteNhanVien(txtMa.Text);
+                    MessageBox.Show("Đã deactive nhân viên", "XÓA NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    list = dal.loadNV();
+                    TaiNV();
+                    //    //reset lại các text box vì nó vẫn còn chứa các thông tin của nhân viên vừa xóa
+                    clearControl();
+                    }
+                    else
+                        MessageBox.Show("Bạn đăng nhập bằng tài khoảng này ! Không thể xóa được !", "XÓA NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "EXCEPTION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            //if (KTMail(txtMail.Text) == false)
-            //{
-            //    MessageBox.Show("Định dạng mail phải có ký tự @! Vui lòng nhập đúng định dạng tenmail@gmail.com", "MAIL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtMail.Focus();
-            //}
-            //else
-            //{
-            //    if (txtTen.Text != "" && txtMail.Text != "" && cbbCap.SelectedItem.ToString() != "" && txtDiachi.Text != "" && txtLuong.Text != "" && txtUsers.Text
-            //        != "" && txtMatkhau.Text != "" && dateTimeNgaySinh.Text != "" && cboxTuoi.Text != "")
-            //    {
-            //        if (KtraKhoaChinh(txtMa.Text) == true)
-            //        {
-            //            MessageBox.Show("Đã tồn tại mã nhân viên này !", "THÊM NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //            //ko them
-            //        }
-            //        else
-            //        {
-            //            //thêm nhân vien
-            //            string chuoi = "INSERT INTO NhanVien VALUES('" + txtMa.Text + "',N'" + txtTen.Text + "','" + dateTimeNgaySinh.Text + "',N'" + cboxGtinh.Text+ "'," + 
-            //                txtLuong.Text + ",'" + txtMail.Text + "',N'" + txtDiachi.Text + "'," + cboxTuoi.Text + ",'" + txtUsers.Text + "','" + txtMatkhau.Text + "','" + cbbCap.Text + "')";
-            //            int kq = this.kn.query(chuoi);
-            //            //kq = 0 them that bai
-            //            if (kq == 0)
-            //                MessageBox.Show("Không thêm nhân viên được !","THÊM NHÂN VIÊN",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            //            else
-            //            {
-            //                MessageBox.Show("Thêm nhân viên thành công !","THÊM NHÂN VIÊN",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            //                //update lại treeview
-            //                TaiNV();
+            if (KTMail(txtMail.Text) == false)
+            {
+                MessageBox.Show("Định dạng mail phải có ký tự @! Vui lòng nhập đúng định dạng tenmail@gmail.com", "MAIL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMail.Focus();
+            }
+            else
+            {
+                if (verifyData())
+                {
+                    if (dal.checkUserName(txtUsers.Text) == true)
+                    {
+                        MessageBox.Show("Tên đăng nhập không hợp lệ !", "THÊM NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //ko them
+                    }
+                    else
+                    {
+                        //thêm nhân vien
+                        dal.themNV(getData());
+                        MessageBox.Show("Thêm nhân viên thành công !", "THÊM NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        list = dal.loadNV();
+                        TaiNV();
+                        clearControl();
 
-            //                //reset các txt box thông tin
-            //                txtMa.Text = "";
-            //                txtTen.Text = "";
-            //                txtMail.Text = "";
-            //                txtDiachi.Text = "";
-            //                txtLuong.Text = "";
-            //                txtUsers.Text = "";
-            //                txtMatkhau.Text = "";
-
-            //                btnLuu.Enabled = false;
-            //                btnHuyThem.Hide();
-            //                btnThem.Enabled = true;
-            //                btnSua.Enabled = true;
-            //                btnXoa.Enabled = true;
-            //                dataGridView_Nhanvien.Enabled = true;
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Vui lòng điền đầy đủ thông tin của nhân viên!", "THÊM NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
+                        btnLuu.Enabled = false;
+                        btnHuyThem.Hide();
+                        btnThem.Enabled = true;
+                        btnSua.Enabled = true;
+                        btnXoa.Enabled = true;
+                        dataGridView_Nhanvien.Enabled = true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin của nhân viên!", "THÊM NHÂN VIÊN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void btnHuyThem_Click(object sender, EventArgs e)
         {
             //reset các text box thông tin
-            //txtMa.Text = "";
-            //txtTen.Text = "";
-            //txtMail.Text = "";
-            //txtDiachi.Text = "";
-            //txtLuong.Text = "";
-            //txtUsers.Text = "";
-            //txtMatkhau.Text = "";
+            clearControl();
 
-            //btnHuyThem.Hide();
-            //dataGridView_Nhanvien.Enabled = true;
-            //btnLuu.Enabled = false;
-            //btnThem.Enabled = true;
-            //btnXoa.Enabled = true;
-            //btnSua.Enabled = true;
+            btnHuyThem.Hide();
+            dataGridView_Nhanvien.Enabled = true;
+            btnLuu.Enabled = false;
+            btnThem.Enabled = true;
+            btnXoa.Enabled = true;
+            btnSua.Enabled = true;
+        }
+
+        public bool verifyData() {
+            return (txtMa.Text != "" &&
+                    txtTen.Text != "" &&
+                    KTMail(txtMail.Text) &&
+                    txtChucVu.Text != "" &&
+                    txtDiachi.Text != "" &&
+                    txtLuong.Text != "" &&
+                    txtUsers.Text != "" &&
+                    txtMatkhau.Text != "" &&
+                    dateTimeNgaySinh.Text != "");
+        }
+
+        public void clearControl() {
+            txtMa.Text = "";
+            txtTen.Text = "";
+            dateTimeNgaySinh.Value = DateTime.Now;
+            cboxGtinh.SelectedIndex = 0;
+            txtMail.Text = "";
+            txtDiachi.Text = "";
+            txtLuong.Text = "";
+            txtChucVu.Text = "";
+            txtUsers.Text = "";
+            txtMatkhau.Text = "";
+            cbbActive.SelectedIndex = 0;
+        }
+
+        public NHANVIEN getData() {
+            NHANVIEN nv = new NHANVIEN();
+            nv.MANV = txtMa.Text;
+            nv.TENNV = txtTen.Text;
+            nv.CHUCVU = txtChucVu.Text;
+            nv.PHAI_NV = cboxGtinh.Text == "Nam" ? 0 : 1;
+            nv.DIACHI_NV = txtDiachi.Text;
+            nv.EMAIL = txtMail.Text;
+            nv.NGAY_SINH = dateTimeNgaySinh.Value;
+            nv.LUONG = Double.Parse(txtLuong.Text);
+            nv.TENDN = txtUsers.Text;
+            nv.MATKHAU = txtMatkhau.Text;
+            nv.HOATDONG = cbbActive.Text;
+            return nv;
         }
 
         private void txtLuong_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //if (Char.IsDigit(e.KeyChar) == false && Char.IsControl(e.KeyChar) == false)
-            //    e.Handled = true;
-        }
-
-        public string taoMaNhanVien()
-        {
-
-            //int dem = 0;
-            //int count;
-            //try
-            //{
-            //    do
-            //    {
-            //        string chuoiCount = "select COUNT(*) from NhanVien where MaNhanVien = 'NHANVIEN" + dem + "'";
-            //        count = int.Parse(this.kn.comMandScalar(chuoiCount));
-            //        if (count == 0)
-            //            return "NHANVIEN" + dem;
-            //        dem++;
-            //    } while (count != 0);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-            //return "NHANVIEN" + (dem + 1);
-            return "";
+            if (Char.IsDigit(e.KeyChar) == false && Char.IsControl(e.KeyChar) == false)
+                e.Handled = true;
         }
 
         public void taiAutoCompleteText()
         {
-            //try
-            //{
-            //    SqlDataReader rd = this.kn.comManReader("select TenNhanVien from NhanVien", "TenNhanVien");
-
-            //    while (rd.Read())
-            //    {
-            //        txtTimtenNv.AutoCompleteCustomSource.Add(rd["TenNhanVien"].ToString());
-            //    }
-            //    rd.Close();
-
-            //    this.kn.closeConnection();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
+            try
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    txtTimtenNv.AutoCompleteCustomSource.Add(list[i].TENNV);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void txtTimtenNv_TextChanged(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (txtTimtenNv.Text.Trim().Equals("") == true)
-            //        TaiNV();
-            //    else
-            //        dataGridView_Nhanvien.DataSource = this.kn.comManTable("select MaNhanVien,TenNhanVien from NhanVien where TenNhanVien like N'" + txtTimtenNv.Text + "%'", "Nhan Vien").Tables["Nhan Vien"];
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
+            try
+            {
+                if (txtTimtenNv.Text.Trim().Equals("") == true)
+                    TaiNV();
+                else
+                    dataGridView_Nhanvien.DataSource = dal.searchNV(txtTimtenNv.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
-       
+        
     }
 }

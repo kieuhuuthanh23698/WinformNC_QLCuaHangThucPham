@@ -14,10 +14,18 @@ namespace QL_CuaHangNongSan
         public static frmHoaDon frmHoaDon = null;
         //form danh mục
         public static frmDanhMucMatHang frmDanhMucMatHang = null;
+            public static frmThemNhomMatHang frmThemNhomMatHang = null;
+            public static frmThemSanPham frmThemSanPham = null;
+            public static frmSuaHangHoa frmSuaHangHoa = null;
+            public static frmNhapHangHoaVaoKho frmNhapHangHoaVaoKho = null;
+        public static frmDoiTenNhomMatHang frmDoiTenNhomMatHang = null;
         public static frmDanhMucKhachHang frmDanhMucKhachHang = null;
         public static frmDanhMucNhanVien frmDanhMucNhanVien = null;
         //form thống kê
         public static frmThongKeHoaDon frmThongKeHoaDon = null;
+
+        //form phan quyen
+        public static frmPhanQuyen frmPhanQuyen = null;
 
 
         /// <summary>
@@ -29,8 +37,6 @@ namespace QL_CuaHangNongSan
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             frmLogin = new frmLogin();
-            //frmCauHinh = new frmKetNoi();
-            //frmMain = new frmMain();
             Application.Run(frmLogin);
         }
     }

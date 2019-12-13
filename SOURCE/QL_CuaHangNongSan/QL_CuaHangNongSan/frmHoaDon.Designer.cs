@@ -81,6 +81,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeInput1 = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.numericThem = new System.Windows.Forms.NumericUpDown();
@@ -626,7 +627,8 @@
             this.Column1,
             this.Column3,
             this.Column2,
-            this.Column4});
+            this.Column4,
+            this.Column6});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Azure;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -737,6 +739,14 @@
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             this.Column4.Visible = false;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "HIDDEN";
+            this.Column6.HeaderText = "Column6";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Visible = false;
             // 
             // dateTimeInput1
             // 
@@ -985,6 +995,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.TextBox txtTichDiem;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaHangHoa;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenHangHoa;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
@@ -995,8 +1008,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.TextBox txtTichDiem;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }

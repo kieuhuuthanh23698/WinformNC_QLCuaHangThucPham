@@ -26,11 +26,11 @@ namespace QL_CuaHangNongSan.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-CQ1BQQH5\\SQLEXPRESS;Initial Catalog=QL_SIEUTHI;Persist Securit" +
-            "y Info=True;User ID=sa;Password=sa2012")]
-        public string QL_CuaHangNongSanConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-CQ1BQQH5\\SQLEXPRESS;Initial Catalog=SeasonalFoods;Persist Secu" +
+            "rity Info=True;User ID=sa;Password=sa2012")]
+        public string SeasonalFoodsConnectionString {
             get {
-                return ((string)(this["QL_CuaHangNongSanConnectionString"]));
+                return ((string)(this["SeasonalFoodsConnectionString"]));
             }
         }
     }

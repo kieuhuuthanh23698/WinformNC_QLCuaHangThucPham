@@ -6,24 +6,19 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using DAL;
 namespace QL_CuaHangNongSan
 {
     public partial class frmNhapHangHoaVaoKho : Form
     {
-        KetNoiDuLieu link;
-        DataGridViewRow row;
-        string tenMatHang;
+        DAL_HangHoa dal = new DAL_HangHoa();
         string maHangHoa;
+        string malo;
 
-        public frmNhapHangHoaVaoKho(KetNoiDuLieu link, DataGridViewRow row)
+        public frmNhapHangHoaVaoKho(string mahh)
         {
-            this.link = link;
-            this.row = row;
-            this.tenMatHang = row.Cells["TenHangHoa"].Value.ToString().Trim();
-            this.maHangHoa = row.Cells["MaHangHoa"].Value.ToString().Trim();
+            this.maHangHoa = mahh;
             InitializeComponent();
-            txtTen.Text = this.tenMatHang;
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -33,40 +28,21 @@ namespace QL_CuaHangNongSan
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (txtSoLuongThem.Text.Length > 0)
+            if (txtSoLuongThem.Text != "")
             {
                 try
                 {
-                    int soLuongThem = int.Parse(txtSoLuongThem.Text);
-                    int soLuongTrongKho = int.Parse(row.Cells["SoluongTrongKho"].Value.ToString().Trim());
-
-                    SqlConnection sql = this.link.getSql();
-                    string queryKhohang = "select * from KhoHang";
-                    SqlDataAdapter daKhoHang = new SqlDataAdapter(queryKhohang, sql);
-                    DataTable tbKhoHang = new DataTable("KhoHang");
-                    daKhoHang.Fill(tbKhoHang);
-
-                    int n = tbKhoHang.Rows.Count;
-                    for (int i = 0; i < n; i++)
-                    {
-                        if (tbKhoHang.Rows[i]["MaHangHoa"].ToString().Trim() == maHangHoa.Trim())
-                        {
-                            tbKhoHang.Rows[i]["SoLuongTrongKho"] = (soLuongThem + soLuongTrongKho).ToString();
-                            SqlCommandBuilder scb = new SqlCommandBuilder(daKhoHang);
-                            scb.GetUpdateCommand();
-                            daKhoHang.Update(tbKhoHang);
-                            MessageBox.Show("Nhập hàng hóa thành công !", "NHẬP HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
-                            return;
-                        }
-                    }
-                    MessageBox.Show("Nhập hàng hóa thất bại !", "NHẬP HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dal.xuatKho(malo, maHangHoa, txtSoLuongThem.Text);
+                    MessageBox.Show("Xuất hàng hóa thành công !", "NHẬP HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Program.frmDanhMucMatHang.refreshData();
+                    Program.frmHoaDon.taiGridViewHangHoa();
                     this.Close();
+                            
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
 
-                    MessageBox.Show("Nhập hàng hóa thất bại !", "NHẬP HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Xuất hàng hóa thất bại !", "NHẬP HÀNG HÓA", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     MessageBox.Show(ex.ToString(), "EXCEPTION", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                 }
@@ -77,6 +53,25 @@ namespace QL_CuaHangNongSan
         {
             if (Char.IsDigit(e.KeyChar) == false && Char.IsControl(e.KeyChar) == false)
                 e.Handled = true;
+        }
+
+        private void frmNhapHangHoaVaoKho_Load(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = dal.getLoHang(maHangHoa);
+            foreach (DataGridViewRow item in dataGridView1.Rows)
+            {
+                if (int.Parse(item.Cells["SOLUONGNHAP"].Value.ToString().Trim()) == int.Parse(item.Cells["SOLUONG_TRENQUAY"].Value.ToString().Trim()))
+                {
+                    item.DefaultCellStyle.BackColor = System.Drawing.Color.Aqua;
+
+                }
+                if(int.Parse(item.Cells["SOLUONGNHAP"].Value.ToString().Trim()) > int.Parse(item.Cells["SOLUONG_TRENQUAY"].Value.ToString().Trim()))
+                {
+                    item.DefaultCellStyle.BackColor = System.Drawing.Color.LightBlue;
+                    txtSoLuongThem.Maximum = int.Parse(item.Cells["SOLUONGNHAP"].Value.ToString().Trim()) - int.Parse(item.Cells["SOLUONG_TRENQUAY"].Value.ToString().Trim());
+                    malo = item.Cells["MALO"].Value.ToString().Trim();
+                }
+            }
         }
     }
 }

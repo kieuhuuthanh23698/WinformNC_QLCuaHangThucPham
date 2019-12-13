@@ -4,3 +4,8 @@ D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNon
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\DAL\obj\Debug\DAL.dll
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\DAL\obj\Debug\DAL.pdb
 D:\NAM 4 - HK1\WINFORM NANG CAO\WinformNC_QLCuaHangThucPham\SOURCE\QL_CuaHangNongSan\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\NAM 4 - HK1\WINFORM NANG CAO\SOURCE\QL_CuaHangNongSan\DAL\obj\Debug\DAL.dll
+D:\NAM 4 - HK1\WINFORM NANG CAO\SOURCE\QL_CuaHangNongSan\DAL\obj\Debug\DAL.pdb
+D:\NAM 4 - HK1\WINFORM NANG CAO\SOURCE\QL_CuaHangNongSan\DAL\bin\Debug\DAL.dll.config
+D:\NAM 4 - HK1\WINFORM NANG CAO\SOURCE\QL_CuaHangNongSan\DAL\bin\Debug\DAL.dll
+D:\NAM 4 - HK1\WINFORM NANG CAO\SOURCE\QL_CuaHangNongSan\DAL\bin\Debug\DAL.pdb

@@ -18,21 +18,24 @@ namespace QL_CuaHangNongSan
         {
             InitializeComponent();
             txtNameNV.Text = dal_main.getNameNV(frmLogin.nhanVien.MANV);
-            if(Program.frmHoaDon == null || Program.frmHoaDon.IsDisposed)
+            if (Program.frmHoaDon == null || Program.frmHoaDon.IsDisposed)
                 Program.frmHoaDon = new frmHoaDon();
             Program.frmHoaDon.Dock = DockStyle.Fill;
             Program.frmHoaDon.TopLevel = false;
             dockContainerItem1.Control.Controls.Add(Program.frmHoaDon);
             Program.frmHoaDon.Show();
             this.MinimumSize = this.MaximumSize;
+            phanQuyen();
         }
 
         private void logout(object sender, EventArgs e)
         {
+            phanQuyen2();
             frmLogin.nhanVien = null;
             if (Program.frmLogin == null || Program.frmLogin.IsDisposed)
                 Program.frmLogin = new frmLogin();
             this.Visible = false;
+            Program.frmMain = null;
             Program.frmLogin.Show();
         }
 
@@ -212,8 +215,87 @@ namespace QL_CuaHangNongSan
             openDanhMucNhanVien(null, null);
         }
 
-        private void tHÔNGToolStripMenuItem_Click(object sender, EventArgs e)
+        private void pHÂNQUYỀNNHÂNVIÊNToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < tab.Items.Count; i++)
+            {
+                if (tab.Items[i].ToString() == "PHÂN QUYỀN")
+                {
+                    tab.Items[i].Visible = true;
+                    menuStrip2.Show();
+                    return;
+                }
+            }
+            DevComponents.DotNetBar.DockContainerItem item = new DevComponents.DotNetBar.DockContainerItem("PHÂN QUYỀN", "PHÂN QUYỀN");
+            tab.Items.Add(item);
+            Image a = global::QL_CuaHangNongSan.Properties.Resources.nhan_vien;
+            item.Image = a;
+            item.Selected = true;
+            DevComponents.DotNetBar.PanelDockContainer panel = new DevComponents.DotNetBar.PanelDockContainer();
+            panel.Name = "PHÂN QUYỀN";
+            item.Control = new Control();
+            item.Control = panel;
+            if (Program.frmPhanQuyen == null || Program.frmPhanQuyen.IsDisposed)
+                Program.frmPhanQuyen = new frmPhanQuyen();
+            Program.frmPhanQuyen.Dock = DockStyle.Fill;
+            Program.frmPhanQuyen.TopLevel = false;
+            item.Control.Controls.Add(Program.frmPhanQuyen);
+            Program.frmPhanQuyen.Show();
+            menuStrip2.Show();
+        }
+
+        private void phanQuyen() {
+            string manv = frmLogin.nhanVien.MANV.Trim();
+            var rs = Context.getInstance().getPhanQuyen(manv);
+            foreach (var item in rs)
+            {
+                getPhanQuyenResult i = (getPhanQuyenResult)item;
+                switch (i.maMH) {
+                    case "frmBH":
+                        btnHoaDon.Enabled = true;
+                        break;
+                    case "frmDM_KH":
+                        danhMụcKháchHàngToolStripMenuItem.Enabled = true;
+                        btnDanhMucKhachHang.Enabled = true;
+                        break;
+                    case "frmDM_MH":
+                        daToolStripMenuItem.Enabled = true;
+                        btnDanhMucMatHang.Enabled = true;
+                        break;
+                    case "frmDM_NV":
+                        danhMụcNhânViênToolStripMenuItem1.Enabled = true;
+                        btnDanhMucNhanVien.Enabled = true;
+                        break;
+                    case "frmHD":
+                        bÁOCÁOQUỸToolStripMenuItem.Enabled = true;
+                        btnThongKeHoaDon.Enabled = true;
+                        break;
+
+                }
+            }
+        }
+        private void phanQuyen2()
+        {
+            btnHoaDon.Enabled = false;
+            danhMụcKháchHàngToolStripMenuItem.Enabled = false;
+            btnDanhMucKhachHang.Enabled = false;
+            daToolStripMenuItem.Enabled = false;
+            btnDanhMucMatHang.Enabled = false;
+            danhMụcNhânViênToolStripMenuItem1.Enabled = false;
+            btnDanhMucNhanVien.Enabled = false;
+            bÁOCÁOQUỸToolStripMenuItem.Enabled = false;
+            btnThongKeHoaDon.Enabled = false;
+        }
+
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            //phanQuyen();
+        }
+
+        private void frmMain_Shown(object sender, EventArgs e)
+        {
+            //phanQuyen();
         }
     }
 }
